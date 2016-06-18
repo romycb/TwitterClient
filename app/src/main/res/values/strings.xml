@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Twitter Client</string>
+    <string name="text" />
+    <string name="user" />
+    <string name="screen_name" />
+    <string name="createdAt" />
+    <string name="created_at" />
+    <string name="name" />
+    <string name="search">SEARCH</string>
+</resources>
