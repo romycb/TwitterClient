@@ -1,12 +1,9 @@
 package com.example.ap.twitterclient.activity;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -16,7 +13,6 @@ import com.example.ap.twitterclient.communication.Authorization;
 import com.example.ap.twitterclient.communication.SearchTask;
 import com.example.ap.twitterclient.communication.TweetModel;
 import com.example.ap.twitterclient.view.TweetAdapter;
-
 
 public class Search extends AppCompatActivity {
     private SearchTask searchTask;
@@ -50,7 +46,6 @@ public class Search extends AppCompatActivity {
 
         lv.setAdapter(adapterTweet);
 
-
         searchField = (EditText) findViewById(R.id.searchField);
         searchButton = (Button) findViewById(R.id.searchbutton);
 
@@ -63,9 +58,5 @@ public class Search extends AppCompatActivity {
                 model.clearTweetList();
             }
         });
-
-
     }
-
-
 }
