@@ -43,14 +43,14 @@ public class SearchTask extends AsyncTask<String, Void, List<Tweet>> {
             conn.setConnectTimeout(15000);
             conn.setRequestMethod("GET");
 
-            String access_token =  model.getAccess_string();
+            String access_token = model.getAccess_string();
             Log.d("access_token search", "doInBackground: " + access_token);
-            if(access_token != null){
+            if (access_token != null) {
                 conn.addRequestProperty("Authorization", "Bearer " + access_token);
             }
 
             conn.setDoInput(true);
-            Log.d("responseCode" , "doInBackground: " + conn.getResponseCode());
+            Log.d("responseCode", "doInBackground: " + conn.getResponseCode());
 
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream is = conn.getInputStream();
@@ -71,8 +71,6 @@ public class SearchTask extends AsyncTask<String, Void, List<Tweet>> {
                 String response = IOUtils.toString(is, "UTF-8");
                 IOUtils.closeQuietly(is);
 
-
-
             }
 
         } catch (IOException ioe) {
@@ -87,13 +85,13 @@ public class SearchTask extends AsyncTask<String, Void, List<Tweet>> {
 
     @Override
     protected void onPostExecute(List<Tweet> tweets) {
-        for (int i = 0; i <tweets.size() ; i++) {
+        for (int i = 0; i < tweets.size(); i++) {
             Log.d("tweetpost", "onPostExecute: " + tweets.get(i));
 
         }
 
-        if (tweets != null)  {
-            for (int i = 0; i <tweets.size() ; i++) {
+        if (tweets != null) {
+            for (int i = 0; i < tweets.size(); i++) {
                 model.addTweets(tweets.get(i));
                 Log.d("singletontweets", "onPostExecute: " + model.getTweets().get(i));
             }

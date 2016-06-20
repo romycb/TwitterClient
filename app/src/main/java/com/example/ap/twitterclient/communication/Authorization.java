@@ -23,8 +23,6 @@ public class Authorization extends AsyncTask<Void, Void, String> {
     private TweetModel tweetModel = TweetModel.getInstance();
     private static final String CHARSET_UTF_8 = "UTF-8";
 
-
-
     @Override
     protected String doInBackground(Void... params) {
 
@@ -71,8 +69,8 @@ public class Authorization extends AsyncTask<Void, Void, String> {
 
             } catch (JSONException e) {
                 e.printStackTrace();
-            }finally {
-                if (conn!= null){
+            } finally {
+                if (conn != null) {
                     conn.disconnect();
                 }
             }

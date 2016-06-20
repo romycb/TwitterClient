@@ -19,7 +19,13 @@ public class TweetModel {
     private String access_string;
     private List<Tweet> tweets= new ArrayList<>();
 
-    private static TweetModel instance = null;
+    private OAuth10aService authService = new ServiceBuilder().
+            apiKey(getApiKey()).
+            apiSecret(getApiSecret()).
+            callback(getCallbackUrl()).
+            build(TwitterAPI.getInstance());
+
+    private static TweetModel instance;
     private TweetModel(){
 
     }
@@ -28,6 +34,10 @@ public class TweetModel {
             instance = new TweetModel();
         }
         return instance;
+    }
+
+    public OAuth10aService getAuthService() {
+        return authService;
     }
 
     public static String getApiKey() {

@@ -27,7 +27,7 @@
         android:textSize="15dp" />
 
     <ImageView
-        android:id="@+id/profile_image"
+        android:id="@+id/profile_image_timeline"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginBottom="5dp"

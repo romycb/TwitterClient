@@ -1,30 +1,33 @@
 package com.example.ap.twitterclient.communication;
 
+import android.util.Log;
+
+import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.builder.api.DefaultApi10a;
 import com.github.scribejava.core.model.OAuth1RequestToken;
+import com.github.scribejava.core.oauth.OAuth10aService;
 
 /**
  * Created by romybeugeling on 06-06-16.
  */
-public class TwitterAPI extends DefaultApi10a
-{
+public class TwitterAPI extends DefaultApi10a {
     private static TwitterAPI ourInstance;
 
     public static TwitterAPI getInstance() {
-        if (ourInstance == null){
+        if (ourInstance == null) {
             ourInstance = new TwitterAPI();
         }
         return ourInstance;
     }
-
-
     private String request_token;
+    private String authurl;
     private String access_token;
-    private String authorization_url = "https://api.twitter.com/oauth/authorize?oauth_token=@s";
+    private String authorization_url = "https://api.twitter.com/oauth/authorize?oauth_token=";
     private String verifier;
     private String url;
-
+    private OAuth1RequestToken reqToken;
     private TwitterAPI() {
+
     }
 
     @Override
@@ -34,13 +37,12 @@ public class TwitterAPI extends DefaultApi10a
 
     @Override
     public String getAccessTokenEndpoint() {
-        return access_token = 	"https://api.twitter.com/oauth/access_token";
+        return access_token = "https://api.twitter.com/oauth/access_token";
     }
 
     @Override
     public String getAuthorizationUrl(OAuth1RequestToken requestToken) {
-        return String.format(authorization_url, requestToken.getToken());
-
+        return authorization_url + requestToken.getToken();
     }
 
     public String getVerifier() {
@@ -51,11 +53,37 @@ public class TwitterAPI extends DefaultApi10a
         this.verifier = verifier;
     }
 
-    public void setUrl(String s){
+    public void setUrl(String s) {
         url = s;
     }
 
     public String getUrl() {
         return url;
+    }
+
+
+    public String getAccess_token() {
+        return access_token;
+    }
+
+    public void setAccess_token(String access_token) {
+        this.access_token = access_token;
+    }
+
+
+    public OAuth1RequestToken getReqToken() {
+        return reqToken;
+    }
+
+    public void setReqToken(OAuth1RequestToken reqToken) {
+        this.reqToken = reqToken;
+    }
+
+    public String getAuthurl() {
+        return authurl;
+    }
+
+    public void setAuthurl(String authurl) {
+        this.authurl = authurl;
     }
 }
