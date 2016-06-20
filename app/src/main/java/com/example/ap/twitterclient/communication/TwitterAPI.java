@@ -20,7 +20,9 @@ public class TwitterAPI extends DefaultApi10a
 
     private String request_token;
     private String access_token;
-    private String authorization_url;
+    private String authorization_url = "https://api.twitter.com/oauth/authorize?oauth_token=@s";
+    private String verifier;
+    private String url;
 
     private TwitterAPI() {
     }
@@ -37,9 +39,23 @@ public class TwitterAPI extends DefaultApi10a
 
     @Override
     public String getAuthorizationUrl(OAuth1RequestToken requestToken) {
-        return authorization_url = "https://api.twitter.com/oauth/authorize" + requestToken;
+        return String.format(authorization_url, requestToken.getToken());
+
     }
 
+    public String getVerifier() {
+        return verifier;
+    }
 
+    public void setVerifier(String verifier) {
+        this.verifier = verifier;
+    }
 
+    public void setUrl(String s){
+        url = s;
+    }
+
+    public String getUrl() {
+        return url;
+    }
 }
