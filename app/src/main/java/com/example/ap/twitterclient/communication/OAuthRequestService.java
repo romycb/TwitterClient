@@ -3,11 +3,17 @@ package com.example.ap.twitterclient.communication;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.ap.twitterclient.JsonReader;
+import com.example.ap.twitterclient.model.Tweet;
+import com.example.ap.twitterclient.view.TweetAdapter;
 import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth10aService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Evi on 20-6-2016.
@@ -21,9 +27,12 @@ public class OAuthRequestService extends AsyncTask<String, Void, String> {
     private String secret;
     private OAuth1AccessToken accessToken;
     private Response response;
+    private String res;
 
     @Override
     protected String doInBackground(String... params) {
+
+        //De accestoken ophalen.
         accessToken = authService.getAccessToken(api.getReqToken(), api.getVerifier());
         Log.d("accessToken", "authservice " + accessToken);
 
@@ -33,13 +42,19 @@ public class OAuthRequestService extends AsyncTask<String, Void, String> {
 
         request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json", authService);
 
+        //Het tekenenen van het request
         authService.signRequest(accessToken, request);
         response = request.send();
+
+        //Het ophalen van de json file.
         if (response.isSuccessful()) {
-            String res = response.getBody();
+            res = response.getBody();
             Log.d("response", "authservice " + res);
         }
 
+
+
         return null;
     }
+
 }

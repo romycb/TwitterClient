@@ -1,23 +1,21 @@
 package com.example.ap.twitterclient.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ListView;
 
 
 import com.example.ap.twitterclient.R;
 import com.example.ap.twitterclient.communication.OAuthRequestService;
 import com.example.ap.twitterclient.communication.TweetModel;
 import com.example.ap.twitterclient.communication.TwitterAPI;
-import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.model.OAuth1AccessToken;
-import com.github.scribejava.core.model.OAuthRequest;
-import com.github.scribejava.core.model.Response;
-import com.github.scribejava.core.model.Verb;
-import com.github.scribejava.core.oauth.OAuth10aService;
+import com.example.ap.twitterclient.view.TweetAdapter;
+
 
 /**
  * Created by romybeugeling and evivanheijningen on 18-06-16.
@@ -33,9 +31,11 @@ public class Webview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web);
 
-        Log.d("webview url", "oncreate" + api.getUrl());
+
         webView = (WebView) findViewById(R.id.webview_screen);
+        //Laden van de URL.
         webView.loadUrl(api.getUrl());
+        //Als er verandering van de URL plaats vindt.
         webView.setWebViewClient(new MýWebviewClient());
     }
 
@@ -47,11 +47,10 @@ public class Webview extends AppCompatActivity {
             if (url.startsWith("https://erjeans.com")) {
                 Log.d("url", "shouldOverrideUrlLoading:" + url);
                 Uri uri = Uri.parse(url);
+                //Het ophalen van de oauth_verifier uit de link.
                 api.setVerifier(uri.getQueryParameter("oauth_verifier"));
 
-                Log.d("verifier", "shouldOverrideUrlLoading:" + api.getVerifier());
-                Log.d("accessToken", "authservice " + api.getReqToken().toString() + api.getVerifier());
-
+                //Het uitvoeren van de service klasse, het ophalen van het response.
                 service = new OAuthRequestService();
                 service.execute();
 

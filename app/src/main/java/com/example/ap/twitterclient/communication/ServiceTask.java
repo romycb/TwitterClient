@@ -23,11 +23,7 @@ public class ServiceTask extends AsyncTask<String, Void, String> {
     private String authurl;
 
     private TwitterAPI api = TwitterAPI.getInstance();
-    private OAuth10aService authService = new ServiceBuilder().
-            apiKey(model.getApiKey()).
-            apiSecret(model.getApiSecret()).
-            callback(model.getCallbackUrl()).
-            build(TwitterAPI.getInstance());
+    private OAuth10aService authService = model.getAuthService();
 
 
     @Override
@@ -40,7 +36,6 @@ public class ServiceTask extends AsyncTask<String, Void, String> {
         Log.d("authurl", "doInBackground:" + authurl);
 
         api.setUrl(authurl);
-
 
         return null;
     }
