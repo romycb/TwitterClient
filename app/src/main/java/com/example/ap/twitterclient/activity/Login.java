@@ -16,7 +16,8 @@ import com.example.ap.twitterclient.communication.ServiceTask;
 public class Login extends AppCompatActivity {
     private Button testButton;
     private ServiceTask serviceTask = new ServiceTask();
-
+//    private TwitterAPI api = TwitterAPI.getInstance();
+//    private TweetModel tweetModel = TweetModel.getInstance();
 
 
 

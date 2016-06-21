@@ -1,6 +1,9 @@
 package com.example.ap.twitterclient.communication;
 
+import android.util.Log;
+
 import com.example.ap.twitterclient.model.Tweet;
+import com.example.ap.twitterclient.model.User;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth1RequestToken;
 import com.github.scribejava.core.oauth.OAuth10aService;
@@ -18,6 +21,7 @@ public class TweetModel {
     private static final String CALLBACK_URL = "https://erjeans.com";
     private String access_string;
     private List<Tweet> tweets= new ArrayList<>();
+    private User user;
 
     private OAuth10aService authService = new ServiceBuilder().
             apiKey(getApiKey()).
@@ -70,5 +74,14 @@ public class TweetModel {
 
     public static String getCallbackUrl() {
         return CALLBACK_URL;
+    }
+
+    public void addUser(User u) {
+        this.user = u;
+        Log.d("user", "addUser: " + this.user);
+    }
+
+    public User getUser() {
+        return user;
     }
 }

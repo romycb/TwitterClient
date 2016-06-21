@@ -1,21 +1,27 @@
 package com.example.ap.twitterclient.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Picture;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ActionMode;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ListView;
 
 
+import com.example.ap.twitterclient.JsonReader;
 import com.example.ap.twitterclient.R;
 import com.example.ap.twitterclient.communication.OAuthRequestService;
 import com.example.ap.twitterclient.communication.TweetModel;
 import com.example.ap.twitterclient.communication.TwitterAPI;
 import com.example.ap.twitterclient.view.TweetAdapter;
 
+import com.github.scribejava.core.model.OAuth1RequestToken;
 
 /**
  * Created by romybeugeling and evivanheijningen on 18-06-16.
@@ -23,6 +29,7 @@ import com.example.ap.twitterclient.view.TweetAdapter;
 
 public class Webview extends AppCompatActivity {
     private TwitterAPI api = TwitterAPI.getInstance();
+    private TweetModel model = TweetModel.getInstance();
     private WebView webView;
     OAuthRequestService service;
 
@@ -37,6 +44,11 @@ public class Webview extends AppCompatActivity {
         webView.loadUrl(api.getUrl());
         //Als er verandering van de URL plaats vindt.
         webView.setWebViewClient(new MýWebviewClient());
+
+        if (model.getUser() != null) {
+            Intent intent = new Intent(Webview.this, Profile.class);
+            startActivity(intent);
+        }
     }
 
     private class MýWebviewClient extends WebViewClient {
@@ -54,12 +66,13 @@ public class Webview extends AppCompatActivity {
                 service = new OAuthRequestService();
                 service.execute();
 
+
             } else {
                 Log.d("fout", "shouldOverrideUrlLoading: ");
             }
             return false;
         }
-    }
 
+    }
 }
 

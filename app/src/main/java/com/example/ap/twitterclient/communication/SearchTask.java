@@ -58,7 +58,8 @@ public class SearchTask extends AsyncTask<String, Void, List<Tweet>> {
                 IOUtils.closeQuietly(is);
                 Log.d("response", "doInBackground: " + response);
 
-                JsonReader jsonReader = new JsonReader();
+//                JsonReader jsonReader = new JsonReader();
+                JsonReader jsonReader = JsonReader.getInstance();
                 tweets = jsonReader.getTweetsFromJsonString(response);
 
                 return tweets;

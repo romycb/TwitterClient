@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.res.AssetManager;
 import android.util.Log;
 
+import com.example.ap.twitterclient.communication.TweetModel;
 import com.example.ap.twitterclient.model.Tweet;
+import com.example.ap.twitterclient.model.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +24,18 @@ import java.util.List;
  */
 public class JsonReader {
 
+    private static JsonReader instance;
+
+    private JsonReader() {
+
+    }
+
+    public static JsonReader getInstance() {
+        if (instance == null) {
+            instance = new JsonReader();
+        }
+        return instance;
+    }
 
     /**
      * @return
@@ -42,11 +56,24 @@ public class JsonReader {
         } catch (JSONException e) {
             Log.d("assets inlezen", "JsonString:" + e.getMessage());
         }
-        for (int i = 0; i <tweetList.size(); i++) {
+        for (int i = 0; i < tweetList.size(); i++) {
             Log.d("json tweets", "doInBackground: " + tweetList.get(i));
         }
 
         return tweetList;
     }
 
+
+    public User getUserFromJson(String response) {
+
+        try {
+            JSONObject jsonobject = new JSONObject(response);
+            User u = new User(jsonobject);
+            return u;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

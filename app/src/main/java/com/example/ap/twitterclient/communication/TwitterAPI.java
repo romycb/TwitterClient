@@ -42,6 +42,7 @@ public class TwitterAPI extends DefaultApi10a {
 
     @Override
     public String getAuthorizationUrl(OAuth1RequestToken requestToken) {
+
         return authorization_url + requestToken.getToken();
     }
 
