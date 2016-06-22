@@ -47,9 +47,13 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         SpannableString tweetText = new SpannableString(currentTweet.getText());
 
         for (int i = 0; i < currentTweet.getEntities().getHashtags().size(); i++) {
-            tweetText.setSpan(new ForegroundColorSpan(Color.rgb(0, 132, 180)), currentTweet.getEntities().getHashtags().get(i).getBeginIndex(),
-                    currentTweet.getEntities().getHashtags().get(i).getEndIndex(),
-                    SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
+            try {
+                tweetText.setSpan(new ForegroundColorSpan(Color.rgb(0, 132, 180)), currentTweet.getEntities().getHashtags().get(i).getBeginIndex(),
+                        currentTweet.getEntities().getHashtags().get(i).getEndIndex(),
+                        SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } catch (IndexOutOfBoundsException ioobe){
+                ioobe.printStackTrace();
+            }
 
         }
 
@@ -63,13 +67,26 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
                 ioobe.printStackTrace();
             }
         }
+
+        for (int i = 0; i < currentTweet.getEntities().getUserMentions().size(); i++) {
+            try {
+                tweetText.setSpan(new ForegroundColorSpan(Color.rgb(0, 132, 180)),
+                        currentTweet.getEntities().getUrls().get(i).getBeginIndex()
+                        , currentTweet.getEntities().getUrls().get(i).getEndIndex(),
+                        SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }catch (IndexOutOfBoundsException ioobe){
+                ioobe.printStackTrace();
+            }
+
+        }
+
         User user = currentTweet.getUser();
 
         TextView tvText = (TextView) convertView.findViewById(R.id.tweet);
         TextView tvCreatedAt = (TextView) convertView.findViewById(R.id.created_at);
         TextView tvScreenName = (TextView) convertView.findViewById(R.id.screen_name);
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
-        ImageView ivprofileImage = (ImageView) convertView.findViewById(R.id.profile_image);
+        ImageView ivprofileImage = (ImageView) convertView.findViewById(R.id.profile_image_timeline);
         tvScreenName.setText("@" + currentTweet.getUser().getScreen_name());
         tvName.setText(currentTweet.getUser().getName());
 

@@ -30,12 +30,6 @@
         android:text="New Text" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:id="@+id/profile_description"
-        android:layout_below="@id/profile_name" />
-
-    <TextView
         android:id="@+id/profile_screen_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,10 +38,45 @@
         android:padding="10dp"
         android:text="New Text" />
 
+    <TextView
+        android:id="@+id/profile_description"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/profile_name"
+        android:paddingStart="10dp" />
+
+    <TextView
+        android:id="@+id/profile_following"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_description"
+        android:paddingStart="10dp"
+        android:text="@string/following" />
+
+    <TextView
+        android:id="@+id/profile_followers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_description"
+        android:layout_toEndOf="@+id/profile_following"
+        android:paddingStart="15dp"
+        android:text="@string/follower" />
+
+    <TextView
+        android:id="@+id/profile_amount_tweets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_description"
+        android:layout_toEndOf="@id/profile_followers"
+        android:paddingStart="15dp"
+        android:text="@string/tweets" />
+
     <ListView
         android:id="@+id/profile_statuses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/profile_description" />
+        android:layout_below="@+id/profile_following" />
+
+
 </RelativeLayout>

@@ -15,6 +15,8 @@ public class Tweet {
     private String text;
     private String id_str;
     private Date created_at;
+//    private String screen_name;
+//    private String name;
     private User user;
     private Entities entities;
 
@@ -28,6 +30,9 @@ public class Tweet {
             id_str = object.getString("id_str");
             SimpleDateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
             created_at = df.parse(object.getString("created_at"));
+//            screen_name = object.getString("screen_name");
+//            name = object.getString("name");
+
             user = new User(object.getJSONObject("user"));
             entities = new Entities(object.getJSONObject("entities"));
         } catch (JSONException e) {
@@ -35,9 +40,10 @@ public class Tweet {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
     }
 
-    public User getUser(){
+    public User getUser() {
         return user;
     }
 

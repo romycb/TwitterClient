@@ -21,11 +21,12 @@ public class User {
     private int statuses_count;
     private String profile_image_url;
     // dit is niet de banner, maar even een vervanger
-    private String profile_background_image_url;
+    private String profile_banner_url;
     private User user;
+    private Entities entities;
 
     public User(String id_str, String name, String screen_name, String description, int followers_count,
-                int friends_count, int statuses_count, String profile_image_url, String profile_background_image_url) {
+                int friends_count, int statuses_count, String profile_image_url, String profile_banner_url) {
         this.id_str = id_str;
         this.name = name;
         this.screen_name = screen_name;
@@ -34,7 +35,7 @@ public class User {
         this.friends_count = friends_count;
         this.statuses_count = statuses_count;
         this.profile_image_url = profile_image_url;
-        this.profile_background_image_url = profile_background_image_url;
+        this.profile_banner_url = profile_banner_url;
     }
 
     /**
@@ -46,14 +47,15 @@ public class User {
             id_str = object.getString("id_str");
             name = object.getString("name");
             screen_name = object.getString("screen_name");
+            entities = new Entities(object.getJSONObject("entities"));
             description = object.getString("description");
             followers_count = object.getInt("followers_count");
             friends_count = object.getInt("friends_count");
             statuses_count = object.getInt("statuses_count");
-            profile_background_image_url = object.getString("profile_background_image_url");
+            profile_banner_url = object.getString("profile_banner_url");
             profile_image_url = object.getString("profile_image_url");
             user = new User( id_str,  name,  screen_name,  description,  followers_count,
-             friends_count,  statuses_count,  profile_image_url, profile_background_image_url);
+             friends_count,  statuses_count,  profile_image_url, profile_banner_url);
             Log.d("User", "User: " + user);
 
         } catch (JSONException e) {
@@ -64,6 +66,10 @@ public class User {
 
     public String getProfile_image_url() {
         return profile_image_url;
+    }
+
+    public Entities getEntities() {
+        return entities;
     }
 
     public String getId_str() {
@@ -94,8 +100,8 @@ public class User {
         return statuses_count;
     }
 
-    public String getProfile_background_image_url() {
-        return profile_background_image_url;
+    public String getProfile_banner_url() {
+        return profile_banner_url;
     }
 
     public User getUser() {
@@ -105,7 +111,7 @@ public class User {
     @Override
     public String toString() {
         return id_str  + ", " +  name + ", " + screen_name  + ", " +  description  + ", " +  followers_count  + ", " +
-                friends_count  + ", " +    statuses_count  + ", " +    profile_image_url  + ", " +   profile_background_image_url;
+                friends_count  + ", " +    statuses_count  + ", " +    profile_image_url  + ", " + profile_banner_url;
 
 
     }

@@ -7,4 +7,7 @@
     <string name="created_at" />
     <string name="name" />
     <string name="search">SEARCH</string>
+    <string name="tweets">0 tweets</string>
+    <string name="following">0 following</string>
+    <string name="follower">0 followers</string>
 </resources>
