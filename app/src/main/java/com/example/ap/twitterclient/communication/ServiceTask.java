@@ -20,16 +20,7 @@ public class ServiceTask extends AsyncTask<String, Void, String> {
 
     private OAuth1RequestToken reqToken;
     private TweetModel model = TweetModel.getInstance();
-//    private TwitterAPI api = TwitterAPI.getInstance();
-//
-//
-//    private OAuth10aService authService = new ServiceBuilder().apiKey(model.getApiKey())
-//            .apiSecret(model.getApiSecret()).callback(model.getCallbackUrl()).build(TwitterAPI.getInstance());
-
     private String authurl;
-//    private OAuth1AccessToken accessToken;
-//    private OAuthRequest request;
-
     private TwitterAPI api = TwitterAPI.getInstance();
     private OAuth10aService authService = model.getAuthService();
 
@@ -45,28 +36,9 @@ public class ServiceTask extends AsyncTask<String, Void, String> {
         Log.d("authurl", "doInBackground:" + authurl);
 
 
-//        accessToken = authService.getAccessToken(reqToken, api.getVerifier());
-//        request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json", authService);
-//
-//        authService.signRequest(accessToken, request);
-//        final Response response = request.send();
-//        System.out.println(response.getBody());
-
         api.setUrl(authurl);
 
         return null;
     }
 
-//    @Override
-//    protected void onPostExecute(String s) {
-//        api.setUrl("https://" + s);
-//
-//    }
-//    @Override
-//    protected void onPostExecute(String s) {
-//        TwitterAPI api = TwitterAPI.getInstance();
-//        api.getAuthorizationUrl(reqToken);
-//
-//        super.onPostExecute(s);
-//    }
 }

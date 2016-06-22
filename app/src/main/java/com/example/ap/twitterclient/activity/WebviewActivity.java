@@ -20,7 +20,7 @@ import com.example.ap.twitterclient.view.TweetAdapter;
  * Created by romybeugeling and evivanheijningen on 18-06-16.
  */
 
-public class Webview extends AppCompatActivity {
+public class WebviewActivity extends AppCompatActivity {
     private TwitterAPI api = TwitterAPI.getInstance();
     private TweetModel model = TweetModel.getInstance();
     private WebView webView;
@@ -33,7 +33,6 @@ public class Webview extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web);
-
 
         webView = (WebView) findViewById(R.id.webview_screen);
         //Laden van de URL.
@@ -65,7 +64,7 @@ public class Webview extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                Intent intent = new Intent(Webview.this, Profile.class);
+                Intent intent = new Intent(WebviewActivity.this, ProfileActivity.class);
                 startActivity(intent);
 
 

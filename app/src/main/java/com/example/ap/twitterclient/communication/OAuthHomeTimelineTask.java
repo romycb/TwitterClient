@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by Evi on 22-6-2016.
  */
-public class OAuthHomeTimeline extends AsyncTask<String, Void, List<Tweet>> {
+public class OAuthHomeTimelineTask extends AsyncTask<String, Void, List<Tweet>> {
     private OAuthRequest request;
     private TwitterAPI api = TwitterAPI.getInstance();
     private Response response;
@@ -29,7 +29,7 @@ public class OAuthHomeTimeline extends AsyncTask<String, Void, List<Tweet>> {
     private OAuth10aService authService = model.getAuthService();
 
 
-    public OAuthHomeTimeline (TweetAdapter adapterTweet) {
+    public OAuthHomeTimelineTask(TweetAdapter adapterTweet) {
         this.adapterTweet = adapterTweet;
     }
 

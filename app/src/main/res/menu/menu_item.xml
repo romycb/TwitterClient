@@ -4,7 +4,22 @@
 
     <item android:title="search_icon"
         android:id="@+id/search_button_actionbar"
-        android:icon="@drawable/search_icon"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/search_icon_correct"
+        app:showAsAction="always" />
+
+    <item android:title="post_tweet_icon"
+        android:id="@+id/post_tweet_actionbar"
+        android:icon="@drawable/feather"
+        app:showAsAction="always"
+        />
+    <item android:title="profile_icon"
+        android:id="@+id/profile_icon_actionbar"
+        android:icon="@drawable/male"
+        app:showAsAction="always"/>
+
+    <item android:title="home_icon"
+        android:id="@+id/home_icon_actionbar"
+        android:icon="@drawable/home"
+        app:showAsAction="always"/>
 
 </menu>

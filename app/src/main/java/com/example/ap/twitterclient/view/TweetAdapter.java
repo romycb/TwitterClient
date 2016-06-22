@@ -94,7 +94,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 
         tvCreatedAt.setText(sdf.format(currentTweet.getCreated_at()));
         tvText.setText(tweetText);
-//        Picasso.with(getContext()).load(user.getProfile_image_url()).into(ivprofileImage);
+        Picasso.with(getContext()).load(user.getProfile_image_url()).into(ivprofileImage);
 
         // TODO: media ophalen uit tweet en laten zien (plaatjes etc.)
 
