@@ -48,7 +48,7 @@ public class Profile extends AppCompatActivity {
 
         userTask = new OAuthUserTask();
         userTask.execute();
-        while (model.getUser() == null){
+        while (model.getUser() == null) {
 
         }
         userTimelineTask = new OAuthUserTimelineTask(adapterTweet);
@@ -64,7 +64,7 @@ public class Profile extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Profile.this, Timeline.class);
+                Intent intent = new Intent(Profile.this, TweetPost.class);
                 startActivity(intent);
             }
         });
@@ -72,9 +72,12 @@ public class Profile extends AppCompatActivity {
         friends_count = (TextView) findViewById(R.id.profile_following);
         statuses_count = (TextView) findViewById(R.id.profile_amount_tweets);
 
-        Picasso.with(this).load(user.getProfile_image_url()).fit().into(profile_image);
-        Picasso.with(this).load(user.getProfile_banner_url()).fit().into(profile_banner);
-
+//        if (user.getProfile_image_url() != null) {
+//            Picasso.with(this).load(user.getProfile_image_url()).fit().into(profile_image);
+//        }
+//        if (user.getProfile_banner_url() != null) {
+//            Picasso.with(this).load(user.getProfile_banner_url()).fit().into(profile_banner);
+//        }
 
         try {
             lv_user_statuses.setAdapter(adapterTweet);

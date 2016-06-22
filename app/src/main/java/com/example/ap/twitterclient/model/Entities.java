@@ -1,5 +1,7 @@
 package com.example.ap.twitterclient.model;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +37,7 @@ public class Entities {
 
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d("hashtag", "Entities: no hashtags found");
         }
 
         //URL ophalen en sturen naar URL klasse
@@ -49,7 +51,7 @@ public class Entities {
 
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d("JsonException", "Entities: no urls found");
         }
 
         // user mentions ophalen en naar usermention klasse sturen
@@ -63,7 +65,7 @@ public class Entities {
                 userMentions.add(userMention);
             }
         } catch (JSONException e){
-            e.printStackTrace();
+            Log.d("JsonException", "Entities: no user_mentions found");
         }
 
 

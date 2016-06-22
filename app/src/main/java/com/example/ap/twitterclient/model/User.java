@@ -20,7 +20,6 @@ public class User {
     private int friends_count;
     private int statuses_count;
     private String profile_image_url;
-    // dit is niet de banner, maar even een vervanger
     private String profile_banner_url;
     private User user;
     private Entities entities;
@@ -39,8 +38,7 @@ public class User {
     }
 
     /**
-     *
-     * @param  object
+     * @param object
      */
     public User(JSONObject object) {
         try {
@@ -52,10 +50,10 @@ public class User {
             followers_count = object.getInt("followers_count");
             friends_count = object.getInt("friends_count");
             statuses_count = object.getInt("statuses_count");
-            profile_banner_url = object.getString("profile_banner_url");
-            profile_image_url = object.getString("profile_image_url");
-            user = new User( id_str,  name,  screen_name,  description,  followers_count,
-             friends_count,  statuses_count,  profile_image_url, profile_banner_url);
+            profile_banner_url = object.optString("profile_banner_url");
+            profile_image_url = object.optString("profile_image_url");
+            user = new User(id_str, name, screen_name, description, followers_count,
+                    friends_count, statuses_count, profile_image_url, profile_banner_url);
             Log.d("User", "User: " + user);
 
         } catch (JSONException e) {
@@ -110,8 +108,8 @@ public class User {
 
     @Override
     public String toString() {
-        return id_str  + ", " +  name + ", " + screen_name  + ", " +  description  + ", " +  followers_count  + ", " +
-                friends_count  + ", " +    statuses_count  + ", " +    profile_image_url  + ", " + profile_banner_url;
+        return id_str + ", " + name + ", " + screen_name + ", " + description + ", " + followers_count + ", " +
+                friends_count + ", " + statuses_count + ", " + profile_image_url + ", " + profile_banner_url;
 
 
     }
