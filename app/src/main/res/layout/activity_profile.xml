@@ -50,4 +50,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/profile_description" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/button_post"
+        android:layout_alignBottom="@+id/profile_screen_name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="33dp" />
 </RelativeLayout>

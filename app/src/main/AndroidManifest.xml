@@ -18,9 +18,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.Timeline" />
-        <activity android:name=".activity.Profile"/>
-        <activity android:name=".activity.Search"/>
-        <activity android:name=".activity.Webview"/>
+        <activity android:name=".activity.Profile" />
+        <activity android:name=".activity.Search" />
+        <activity android:name=".activity.Webview" />
+        <activity android:name=".activity.TweetPost"></activity>
     </application>
 
 </manifest>

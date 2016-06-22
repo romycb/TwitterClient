@@ -6,15 +6,32 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.example.ap.twitterclient.R;
+import com.example.ap.twitterclient.communication.OAuthHomeTimeline;
+import com.example.ap.twitterclient.communication.TweetModel;
+import com.example.ap.twitterclient.view.TweetAdapter;
 
 public class Timeline extends AppCompatActivity {
+    private TweetAdapter adapterTweet;
+    private TweetModel model = TweetModel.getInstance();
+    private OAuthHomeTimeline homeTimelineTask;
+    private ListView lv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
+        adapterTweet = new TweetAdapter(this, R.layout.tweet_list_item, model.getTweets());
+        homeTimelineTask = new OAuthHomeTimeline(adapterTweet);
+        homeTimelineTask.execute();
+
+        lv = (ListView) findViewById(R.id.listViewHomeTimeline);
+
+        lv.setAdapter(adapterTweet);
     }
 
     @Override
