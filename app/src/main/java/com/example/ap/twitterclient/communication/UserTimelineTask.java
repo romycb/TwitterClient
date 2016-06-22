@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.ap.twitterclient.JsonReader;
 import com.example.ap.twitterclient.model.Tweet;
 import com.example.ap.twitterclient.view.TweetAdapter;
+import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
@@ -23,7 +24,7 @@ public class UserTimelineTask extends AsyncTask<String, Void, List<Tweet>> {
     private Response response;
     private List<Tweet> tweets;
     private TweetAdapter adapterTweet;
-
+    private OAuth1AccessToken accessToken = api.getAccess_token();
     private String res;
     private TweetModel model = TweetModel.getInstance();
     private OAuth10aService authService = model.getAuthService();
@@ -39,7 +40,7 @@ public class UserTimelineTask extends AsyncTask<String, Void, List<Tweet>> {
         Log.d("request", "doInBackground: " + request);
 
         //Het tekenen van het request
-        authService.signRequest(api.getAccess_token(), request);
+        authService.signRequest(accessToken, request);
         response = request.send();
 
         if (response.isSuccessful()) {

@@ -30,6 +30,7 @@ public class Profile extends AppCompatActivity {
     private User user = model.getUser();
     private TweetAdapter adapterTweet;
     private UserTimelineTask task;
+    private OAuthRequestService service;
 
 
     @Override
@@ -39,8 +40,18 @@ public class Profile extends AppCompatActivity {
 
         adapterTweet = new TweetAdapter(this, R.layout.tweet_list_item, model.getTweets());
 
+
+
+        service = new OAuthRequestService();
+        service.execute();
+        while (model.getUser() == null){
+
+        }
         task = new UserTimelineTask(adapterTweet);
         task.execute();
+
+
+
 
 
         name = (TextView) findViewById(R.id.profile_name);

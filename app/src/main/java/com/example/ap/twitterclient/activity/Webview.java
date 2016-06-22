@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 import com.example.ap.twitterclient.JsonReader;
 import com.example.ap.twitterclient.R;
+import com.example.ap.twitterclient.communication.OAuthAccessTask;
 import com.example.ap.twitterclient.communication.OAuthRequestService;
 import com.example.ap.twitterclient.communication.TweetModel;
 import com.example.ap.twitterclient.communication.TwitterAPI;
@@ -34,8 +35,9 @@ public class Webview extends AppCompatActivity {
     private TweetModel model = TweetModel.getInstance();
     private WebView webView;
     private TweetAdapter adapterTweet;
-    private OAuthRequestService service;
+    private OAuthAccessTask service;
     private UserTimelineTask task;
+    private String verifier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +62,13 @@ public class Webview extends AppCompatActivity {
                 Log.d("url", "shouldOverrideUrlLoading:" + url);
                 Uri uri = Uri.parse(url);
                 //Het ophalen van de oauth_verifier uit de link.
-                api.setVerifier(uri.getQueryParameter("oauth_verifier"));
+                verifier = uri.getQueryParameter("oauth_verifier");
 
                 //Het uitvoeren van de service klasse, het ophalen van het response.
-                service = new OAuthRequestService();
-                service.execute();
+                service = new OAuthAccessTask();
+                service.execute(verifier);
 
-                while(model.getUser() == null){
+                while(api.getAccess_token() == null){
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -75,7 +77,6 @@ public class Webview extends AppCompatActivity {
                 }
                 Intent intent = new Intent(Webview.this, Profile.class);
                 startActivity(intent);
-
 
 
             } else {
