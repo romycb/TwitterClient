@@ -19,14 +19,12 @@ import java.util.List;
 /**
  * Created by Evi on 20-6-2016.
  */
-public class OAuthRequestService extends AsyncTask<String, Void, String> {
+public class OAuthUserTask extends AsyncTask<String, Void, String> {
     private TwitterAPI api = TwitterAPI.getInstance();
     private TweetModel model = TweetModel.getInstance();
     private OAuth10aService authService = model.getAuthService();
     private OAuthRequest request;
-    private String token;
-    private String secret;
-    private OAuth1AccessToken accessToken;
+    private OAuth1AccessToken accessToken = api.getAccess_token();
     private Response response;
     private String res;
     private boolean b;
@@ -34,21 +32,12 @@ public class OAuthRequestService extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        //De accestoken ophalen.
-        accessToken = authService.getAccessToken(api.getReqToken(), api.getVerifier());
-        api.setAccess_token(accessToken);
-        Log.d("accessToken", "authservice " + accessToken);
-
-//        token = accessToken.getToken();
-//        secret = accessToken.getTokenSecret();
-//        accessToken = new OAuth1AccessToken(token, secret);
-//        Log.d("second accesstoken", "doInBackground: " + accessToken);
-
 
         request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json", authService);
         Log.d("request", "doInBackground: " + request);
 
         //Het tekenen van het request
+        Log.d("accessToken", "doInBackground: " + accessToken);
         authService.signRequest(accessToken, request);
         response = request.send();
 
@@ -71,25 +60,5 @@ public class OAuthRequestService extends AsyncTask<String, Void, String> {
 
         return null;
     }
-//
-//    @Override
-//    protected void onPostExecute(String s) {
-//        JsonReader jsonReader = JsonReader.getInstance();
-//        User user = jsonReader.getUserFromJson(s);
-//        model.addUser(user);
-//        Log.d("user", "onPostExecute: " + user);
-//
-////        valid(true);
-//
-//
-//        super.onPostExecute(s);
-//    }
-//
-//    public boolean valid(boolean b){
-//        return this.b = b;
-//    }
-//
-//    public boolean isValid(){
-//        return b;
-//    }
+
 }

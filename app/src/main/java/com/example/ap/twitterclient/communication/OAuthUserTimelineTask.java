@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.ap.twitterclient.JsonReader;
 import com.example.ap.twitterclient.model.Tweet;
 import com.example.ap.twitterclient.view.TweetAdapter;
+import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
@@ -17,19 +18,19 @@ import java.util.List;
  * Created by romybeugeling on 22-06-16.
  */
 
-public class UserTimelineTask extends AsyncTask<String, Void, List<Tweet>> {
+public class OAuthUserTimelineTask extends AsyncTask<String, Void, List<Tweet>> {
     private OAuthRequest request;
     private TwitterAPI api = TwitterAPI.getInstance();
     private Response response;
     private List<Tweet> tweets;
     private TweetAdapter adapterTweet;
-
+    private OAuth1AccessToken accessToken = api.getAccess_token();
     private String res;
     private TweetModel model = TweetModel.getInstance();
     private OAuth10aService authService = model.getAuthService();
 
 
-    public UserTimelineTask(TweetAdapter adapterTweet) {
+    public OAuthUserTimelineTask(TweetAdapter adapterTweet) {
         this.adapterTweet = adapterTweet;
     }
 
@@ -39,7 +40,7 @@ public class UserTimelineTask extends AsyncTask<String, Void, List<Tweet>> {
         Log.d("request", "doInBackground: " + request);
 
         //Het tekenen van het request
-        authService.signRequest(api.getAccess_token(), request);
+        authService.signRequest(accessToken, request);
         response = request.send();
 
         if (response.isSuccessful()) {

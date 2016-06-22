@@ -1,29 +1,20 @@
 package com.example.ap.twitterclient.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Picture;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.ActionMode;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 
-import com.example.ap.twitterclient.JsonReader;
 import com.example.ap.twitterclient.R;
-import com.example.ap.twitterclient.communication.OAuthRequestService;
+import com.example.ap.twitterclient.communication.OAuthAccessTask;
 import com.example.ap.twitterclient.communication.TweetModel;
 import com.example.ap.twitterclient.communication.TwitterAPI;
-import com.example.ap.twitterclient.communication.UserTimelineTask;
+import com.example.ap.twitterclient.communication.OAuthUserTimelineTask;
 import com.example.ap.twitterclient.view.TweetAdapter;
-
-import com.github.scribejava.core.model.OAuth1RequestToken;
 
 /**
  * Created by romybeugeling and evivanheijningen on 18-06-16.
@@ -34,8 +25,9 @@ public class Webview extends AppCompatActivity {
     private TweetModel model = TweetModel.getInstance();
     private WebView webView;
     private TweetAdapter adapterTweet;
-    private OAuthRequestService service;
-    private UserTimelineTask task;
+    private OAuthAccessTask accessTask;
+    private OAuthUserTimelineTask task;
+    private String verifier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +52,13 @@ public class Webview extends AppCompatActivity {
                 Log.d("url", "shouldOverrideUrlLoading:" + url);
                 Uri uri = Uri.parse(url);
                 //Het ophalen van de oauth_verifier uit de link.
-                api.setVerifier(uri.getQueryParameter("oauth_verifier"));
+                verifier = uri.getQueryParameter("oauth_verifier");
 
-                //Het uitvoeren van de service klasse, het ophalen van het response.
-                service = new OAuthRequestService();
-                service.execute();
+                //Het uitvoeren van de accessTask klasse, het ophalen van het response.
+                accessTask = new OAuthAccessTask();
+                accessTask.execute(verifier);
 
-                while(model.getUser() == null){
+                while(api.getAccess_token() == null){
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -75,7 +67,6 @@ public class Webview extends AppCompatActivity {
                 }
                 Intent intent = new Intent(Webview.this, Profile.class);
                 startActivity(intent);
-
 
 
             } else {
