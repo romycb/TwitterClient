@@ -36,6 +36,7 @@ public class OAuthRequestService extends AsyncTask<String, Void, String> {
 
         //De accestoken ophalen.
         accessToken = authService.getAccessToken(api.getReqToken(), api.getVerifier());
+        api.setAccess_token(accessToken);
         Log.d("accessToken", "authservice " + accessToken);
 
 //        token = accessToken.getToken();
@@ -47,7 +48,7 @@ public class OAuthRequestService extends AsyncTask<String, Void, String> {
         request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json", authService);
         Log.d("request", "doInBackground: " + request);
 
-        //Het tekenenen van het request
+        //Het tekenen van het request
         authService.signRequest(accessToken, request);
         response = request.send();
 

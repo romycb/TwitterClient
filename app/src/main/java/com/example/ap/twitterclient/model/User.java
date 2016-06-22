@@ -104,8 +104,8 @@ public class User {
 
     @Override
     public String toString() {
-        return id_str + name + screen_name + description + followers_count +
-                friends_count +   statuses_count +   profile_image_url +  profile_background_image_url;
+        return id_str  + ", " +  name + ", " + screen_name  + ", " +  description  + ", " +  followers_count  + ", " +
+                friends_count  + ", " +    statuses_count  + ", " +    profile_image_url  + ", " +   profile_background_image_url;
 
 
     }

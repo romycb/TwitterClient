@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.ActionMode;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 
@@ -19,6 +20,7 @@ import com.example.ap.twitterclient.R;
 import com.example.ap.twitterclient.communication.OAuthRequestService;
 import com.example.ap.twitterclient.communication.TweetModel;
 import com.example.ap.twitterclient.communication.TwitterAPI;
+import com.example.ap.twitterclient.communication.UserTimelineTask;
 import com.example.ap.twitterclient.view.TweetAdapter;
 
 import com.github.scribejava.core.model.OAuth1RequestToken;
@@ -31,7 +33,9 @@ public class Webview extends AppCompatActivity {
     private TwitterAPI api = TwitterAPI.getInstance();
     private TweetModel model = TweetModel.getInstance();
     private WebView webView;
-    OAuthRequestService service;
+    private TweetAdapter adapterTweet;
+    private OAuthRequestService service;
+    private UserTimelineTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +49,6 @@ public class Webview extends AppCompatActivity {
         //Als er verandering van de URL plaats vindt.
         webView.setWebViewClient(new MýWebviewClient());
 
-        if (model.getUser() != null) {
-            Intent intent = new Intent(Webview.this, Profile.class);
-            startActivity(intent);
-        }
     }
 
     private class MýWebviewClient extends WebViewClient {
@@ -65,6 +65,17 @@ public class Webview extends AppCompatActivity {
                 //Het uitvoeren van de service klasse, het ophalen van het response.
                 service = new OAuthRequestService();
                 service.execute();
+
+                while(model.getUser() == null){
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Intent intent = new Intent(Webview.this, Profile.class);
+                startActivity(intent);
+
 
 
             } else {

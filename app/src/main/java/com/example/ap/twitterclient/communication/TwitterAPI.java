@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.builder.api.DefaultApi10a;
+import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.github.scribejava.core.model.OAuth1RequestToken;
 import com.github.scribejava.core.oauth.OAuth10aService;
 
@@ -19,9 +20,11 @@ public class TwitterAPI extends DefaultApi10a {
         }
         return ourInstance;
     }
+
+
     private String request_token;
     private String authurl;
-    private String access_token;
+    private OAuth1AccessToken access_token ;
     private String authorization_url = "https://api.twitter.com/oauth/authorize?oauth_token=";
     private String verifier;
     private String url;
@@ -37,7 +40,7 @@ public class TwitterAPI extends DefaultApi10a {
 
     @Override
     public String getAccessTokenEndpoint() {
-        return access_token = "https://api.twitter.com/oauth/access_token";
+        return "https://api.twitter.com/oauth/access_token";
     }
 
     @Override
@@ -63,11 +66,11 @@ public class TwitterAPI extends DefaultApi10a {
     }
 
 
-    public String getAccess_token() {
+    public  OAuth1AccessToken getAccess_token() {
         return access_token;
     }
 
-    public void setAccess_token(String access_token) {
+    public void setAccess_token( OAuth1AccessToken access_token) {
         this.access_token = access_token;
     }
 
