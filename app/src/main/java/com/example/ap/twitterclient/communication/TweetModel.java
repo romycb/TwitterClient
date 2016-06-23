@@ -22,6 +22,7 @@ public class TweetModel {
     private String access_string;
     private List<Tweet> tweets= new ArrayList<>();
     private User user;
+    private User userSHow;
 
     private OAuth10aService authService = new ServiceBuilder().
             apiKey(getApiKey()).
@@ -62,6 +63,7 @@ public class TweetModel {
 
     public void addTweets(Tweet tweet){
         tweets.add(tweet);
+        Log.d("list", "addTweets: " + tweets);
     }
 
     public void clearTweetList(){
@@ -69,6 +71,7 @@ public class TweetModel {
     }
 
     public List<Tweet> getTweets() {
+        Log.d("list", "getTweets: " + tweets);
         return tweets;
     }
 
@@ -79,6 +82,13 @@ public class TweetModel {
     public void addUser(User u) {
         this.user = u;
         Log.d("user", "addUser: " + this.user);
+    }
+    public void addUserShow(User u){
+        this.userSHow = u;
+
+    }
+    public User getUserShow(){
+        return userSHow;
     }
 
     public User getUser() {

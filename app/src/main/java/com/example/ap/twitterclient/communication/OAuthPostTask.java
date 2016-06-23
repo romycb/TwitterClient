@@ -37,6 +37,7 @@ public class OAuthPostTask extends AsyncTask<String, Void, String> {
         Log.d("accessToken", "doInBackground: " + accessToken);
         authService.signRequest(accessToken, request);
         response = request.send();
+        Log.d("post response", "doInBackground: " + response);
 
 
         return null;

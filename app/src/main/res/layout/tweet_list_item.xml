@@ -26,7 +26,7 @@
         android:text="@string/screen_name"
         android:textSize="15dp" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/profile_image_timeline"
         android:layout_width="70dp"
         android:layout_height="70dp"

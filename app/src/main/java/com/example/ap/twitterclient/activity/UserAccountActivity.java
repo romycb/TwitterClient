@@ -1,5 +1,6 @@
 package com.example.ap.twitterclient.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,23 +8,23 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ap.twitterclient.R;
 import com.example.ap.twitterclient.communication.OAuthUserTask;
-import com.example.ap.twitterclient.communication.TweetModel;
 import com.example.ap.twitterclient.communication.OAuthUserTimelineTask;
+import com.example.ap.twitterclient.communication.TweetModel;
+import com.example.ap.twitterclient.model.Tweet;
 import com.example.ap.twitterclient.model.User;
 import com.example.ap.twitterclient.view.TweetAdapter;
 import com.squareup.picasso.Picasso;
 
-public class ProfileActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
 
-
+public class UserAccountActivity extends AppCompatActivity {
     private TextView name;
     private TextView screen_name;
     private TextView description;
@@ -37,41 +38,37 @@ public class ProfileActivity extends AppCompatActivity {
     private User user;
     private TweetAdapter adapterTweet;
     private OAuthUserTimelineTask userTimelineTask;
-    private OAuthUserTask userTask;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-
-        adapterTweet = new TweetAdapter(this, R.layout.tweet_list_item, model.getTweets());
+        setContentView(R.layout.activity_oauth_user_show_task);
+        adapterTweet = new TweetAdapter(this,R.layout.tweet_list_item, model.getTweets());
         adapterTweet.clear();
 
-        userTask = new OAuthUserTask();
-        userTask.execute();
-        user = model.getUser();
+        user = model.getUserShow();
+
+        userTimelineTask = new OAuthUserTimelineTask(adapterTweet);
+        userTimelineTask.execute();
 
         while (user == null) {
             try {
                 Thread.sleep(1000);
-                user = model.getUser();
+                user = model.getUserShow();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        Log.d("user not empty", "oncreate" + user);
-        userTimelineTask = new OAuthUserTimelineTask(adapterTweet);
-        userTimelineTask.execute();
-
 
         name = (TextView) findViewById(R.id.profile_name);
         screen_name = (TextView) findViewById(R.id.profile_screen_name);
         description = (TextView) findViewById(R.id.profile_description);
         profile_banner = (ImageView) findViewById(R.id.profile_banner);
         profile_image = (ImageView) findViewById(R.id.profile_image);
-        lv_user_statuses = (ListView) findViewById(R.id.profile_statuses);
         followers_count = (TextView) findViewById(R.id.profile_followers);
+        lv_user_statuses = (ListView) findViewById(R.id.profile_statuses_user_show);
         friends_count = (TextView) findViewById(R.id.profile_following);
         statuses_count = (TextView) findViewById(R.id.profile_amount_tweets);
 
@@ -119,7 +116,13 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent home = new Intent(this, TimelineActivity.class);
                 startActivity(home);
                 break;
+            case R.id.profile_icon_actionbar:
+                Intent profile = new Intent(this, ProfileActivity.class);
+                startActivity(profile);
         }
         return true;
     }
+
+
+
 }
