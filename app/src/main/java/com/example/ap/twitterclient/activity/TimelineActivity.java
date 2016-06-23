@@ -26,6 +26,7 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
         adapterTweet = new TweetAdapter(this, R.layout.tweet_list_item, model.getTweets());
+        adapterTweet.clear();
         homeTimelineTask = new OAuthHomeTimelineTask(adapterTweet);
         homeTimelineTask.execute();
 

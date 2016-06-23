@@ -10,7 +10,7 @@
     <string name="tweets">0 tweets</string>
     <string name="following">0 following</string>
     <string name="follower">0 followers</string>
-    <string name="authorize_btn_text">AUTHORIZE</string>
+    <string name="authorize_btn_text">Login</string>
     <string name="tweeten">TWEETEN</string>
     <string name="maximale_tekens">140 characters max</string>
 </resources>

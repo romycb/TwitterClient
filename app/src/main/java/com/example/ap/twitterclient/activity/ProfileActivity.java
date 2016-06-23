@@ -45,8 +45,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
         adapterTweet = new TweetAdapter(this, R.layout.tweet_list_item, model.getTweets());
+        adapterTweet.clear();
 
         userTask = new OAuthUserTask();
         userTask.execute();
@@ -74,10 +74,10 @@ public class ProfileActivity extends AppCompatActivity {
         friends_count = (TextView) findViewById(R.id.profile_following);
         statuses_count = (TextView) findViewById(R.id.profile_amount_tweets);
 
-        if (user.getProfile_image_url() != null) {
+        if (!user.getProfile_image_url().isEmpty()) {
             Picasso.with(this).load(user.getProfile_image_url()).fit().into(profile_image);
         }
-        if (user.getProfile_banner_url() != null) {
+        if (!user.getProfile_banner_url().isEmpty()) {
             Picasso.with(this).load(user.getProfile_banner_url()).fit().into(profile_banner);
         }
 

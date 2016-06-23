@@ -34,6 +34,7 @@ public class SearchActivity extends AppCompatActivity {
 
         ListView lv = (ListView) findViewById(R.id.listView);
         adapterTweet = new TweetAdapter(this, R.layout.tweet_list_item, model.getTweets());
+        adapterTweet.clear();
 
         Authorization authorization = new Authorization();
         authorization.execute();
