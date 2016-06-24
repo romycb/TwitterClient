@@ -59,10 +59,10 @@ public class OAuthHomeTimelineTask extends AsyncTask<String, Void, List<Tweet>> 
 
     @Override
     protected void onPostExecute(List<Tweet> tweets) {
-        for (int i = 0; i < tweets.size(); i++) {
-            Log.d("tweetpost", "onPostExecute: " + tweets.get(i));
-
-        }
+//        for (int i = 0; i < tweets.size(); i++) {
+//            Log.d("tweetpost", "onPostExecute: " + tweets.get(i));
+//
+//        }
         if (tweets != null) {
             for (int i = 0; i < tweets.size(); i++) {
                 model.addTweets(tweets.get(i));

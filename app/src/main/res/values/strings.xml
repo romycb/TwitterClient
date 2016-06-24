@@ -13,4 +13,6 @@
     <string name="authorize_btn_text">Login</string>
     <string name="tweeten">TWEETEN</string>
     <string name="maximale_tekens">140 characters max</string>
+    <string name="follow">FOLLOW</string>
+    <string name="unfollow">UNFOLLOW</string>
 </resources>

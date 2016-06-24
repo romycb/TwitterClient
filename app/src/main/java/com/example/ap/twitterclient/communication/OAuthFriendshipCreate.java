@@ -3,8 +3,6 @@ package com.example.ap.twitterclient.communication;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.ap.twitterclient.JsonReader;
-import com.example.ap.twitterclient.model.User;
 import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
@@ -17,55 +15,30 @@ import java.net.URLEncoder;
 /**
  * Created by Evi on 23-6-2016.
  */
-public class OAuthUserShowTask extends AsyncTask<String, Void, String> { private TwitterAPI api = TwitterAPI.getInstance();
+public class OAuthFriendshipCreate extends AsyncTask<String , Void, String> {
+    private TwitterAPI api = TwitterAPI.getInstance();
     private TweetModel model = TweetModel.getInstance();
     private OAuth10aService authService = model.getAuthService();
     private OAuthRequest request;
     private OAuth1AccessToken accessToken = api.getAccess_token();
     private Response response;
-    private String res;
-
     @Override
     protected String doInBackground(String... params) {
-
-
+        String screen_name = params[0];
         try {
-            request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/users/show.json?screen_name="+  URLEncoder.encode(params[0], "UTF-8"), authService);
-
-
-
+            request = new OAuthRequest(Verb.POST, "https://api.twitter.com/1.1/friendships/create.json?screen_name="+ URLEncoder.encode(screen_name, "UTF-8"), authService);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-
         }
-        Log.d("request show task", "doInBackground: " + request);
+        Log.d("request", "doInBackground: " + request);
 
         //Het tekenen van het request
-        Log.d("accessToken show task", "doInBackground: " + accessToken);
+        Log.d("accessToken", "doInBackground: " + accessToken);
         authService.signRequest(accessToken, request);
         response = request.send();
-
-
-        Log.d("response", "show " + response);
-
-
-
-        //Het ophalen van de json file.
-        if (response.isSuccessful()) {
-            res = response.getBody();
-
-            Log.d("response", "authservice show task " + res);
-
-            JsonReader jsonUser = JsonReader.getInstance();
-            User user = jsonUser.getUserFromJson(res);
-            model.setUserShow(user);
-            Log.d("user", "doInBackground: " + user);
-
-            return res;
-        }
+        Log.d("post response", "doInBackground: " + response);
 
 
         return null;
     }
-
-    }
+}

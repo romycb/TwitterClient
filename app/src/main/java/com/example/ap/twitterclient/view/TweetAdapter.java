@@ -16,10 +16,10 @@ import android.widget.TextView;
 
 
 import com.example.ap.twitterclient.R;
+import com.example.ap.twitterclient.activity.ProfileActivity;
 import com.example.ap.twitterclient.activity.UserAccountActivity;
 import com.example.ap.twitterclient.communication.OAuthUserShowTask;
 import com.example.ap.twitterclient.communication.TweetModel;
-import com.example.ap.twitterclient.communication.TwitterAPI;
 import com.example.ap.twitterclient.model.Tweet;
 import com.example.ap.twitterclient.model.User;
 import com.squareup.picasso.Picasso;
@@ -40,6 +40,8 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
     private Context context;
     private int position;
     private User user;
+    private User user2;
+
 
 
     public TweetAdapter(Context context, int resource, List<Tweet> objects) {
@@ -94,6 +96,8 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 
         }
         user = currentTweet.getUser();
+        user2= model.getUser();
+
 
         TextView tvText = (TextView) convertView.findViewById(R.id.tweet);
         TextView tvCreatedAt = (TextView) convertView.findViewById(R.id.created_at);
@@ -110,14 +114,34 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         ivprofileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 screen_name = model.getTweets().get(position).getUser().getScreen_name();
 
+                while(screen_name == null){
+                    try {
+                        Thread.sleep(1000);
+                        screen_name = model.getTweets().get(position).getUser().getScreen_name();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 userShowTask = new OAuthUserShowTask();
                 userShowTask.execute(screen_name);
 
-                Log.d("name", "show id" + screen_name);
-                Intent intent = new Intent(context, UserAccountActivity.class);
-                context.startActivity(intent);
+                Log.d("name", "position" + screen_name);
+
+                if (!screen_name.equals(user2.getScreen_name())){
+                    Intent intent = new Intent(context, UserAccountActivity.class);
+                    context.startActivity(intent);
+
+
+                }else {
+                    Intent intent2 = new Intent(context, ProfileActivity.class);
+                    context.startActivity(intent2);
+                }
+
+
+
 
             }
         });

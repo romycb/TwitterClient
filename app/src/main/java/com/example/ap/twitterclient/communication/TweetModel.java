@@ -5,7 +5,6 @@ import android.util.Log;
 import com.example.ap.twitterclient.model.Tweet;
 import com.example.ap.twitterclient.model.User;
 import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.model.OAuth1RequestToken;
 import com.github.scribejava.core.oauth.OAuth10aService;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class TweetModel {
     private String access_string;
     private List<Tweet> tweets= new ArrayList<>();
     private User user;
-    private User userSHow;
+    private User userShow;
 
     private OAuth10aService authService = new ServiceBuilder().
             apiKey(getApiKey()).
@@ -83,13 +82,17 @@ public class TweetModel {
         this.user = u;
         Log.d("user", "addUser: " + this.user);
     }
-    public void addUserShow(User u){
-        this.userSHow = u;
+    public void setUserShow(User u){
+        this.userShow = u;
+        Log.d("user", "addUsershow: " + this.userShow);
 
     }
+
     public User getUserShow(){
-        return userSHow;
+        Log.d("usershow" , "tweetmodel" + userShow);
+        return userShow;
     }
+
 
     public User getUser() {
         return user;

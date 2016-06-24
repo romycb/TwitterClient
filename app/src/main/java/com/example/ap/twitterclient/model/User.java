@@ -23,9 +23,10 @@ public class User {
     private String profile_banner_url;
     private User user;
     private Entities entities;
+    private Boolean following;
 
     public User(String id_str, String name, String screen_name, String description, int followers_count,
-                int friends_count, int statuses_count, String profile_image_url, String profile_banner_url) {
+                int friends_count, int statuses_count, String profile_image_url, String profile_banner_url, Boolean following) {
         this.id_str = id_str;
         this.name = name;
         this.screen_name = screen_name;
@@ -35,6 +36,7 @@ public class User {
         this.statuses_count = statuses_count;
         this.profile_image_url = profile_image_url;
         this.profile_banner_url = profile_banner_url;
+        this.following = following;
     }
 
     /**
@@ -52,8 +54,9 @@ public class User {
             statuses_count = object.getInt("statuses_count");
             profile_banner_url = object.optString("profile_banner_url");
             profile_image_url = object.optString("profile_image_url");
+            following = object.getBoolean("following");
             user = new User(id_str, name, screen_name, description, followers_count,
-                    friends_count, statuses_count, profile_image_url, profile_banner_url);
+                    friends_count, statuses_count, profile_image_url, profile_banner_url,following);
             Log.d("User", "User: " + user);
 
         } catch (JSONException e) {
@@ -76,6 +79,10 @@ public class User {
 
     public String getDescription() {
         return description;
+    }
+
+    public Boolean getFollowing() {
+        return following;
     }
 
     public String getScreen_name() {

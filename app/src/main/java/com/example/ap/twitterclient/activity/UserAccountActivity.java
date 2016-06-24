@@ -1,6 +1,5 @@
 package com.example.ap.twitterclient.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,21 +7,20 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ap.twitterclient.R;
-import com.example.ap.twitterclient.communication.OAuthUserTask;
+import com.example.ap.twitterclient.communication.OAuthFriendshipCreate;
+import com.example.ap.twitterclient.communication.OAuthFriendshipDestroy;
 import com.example.ap.twitterclient.communication.OAuthUserTimelineTask;
 import com.example.ap.twitterclient.communication.TweetModel;
-import com.example.ap.twitterclient.model.Tweet;
 import com.example.ap.twitterclient.model.User;
 import com.example.ap.twitterclient.view.TweetAdapter;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserAccountActivity extends AppCompatActivity {
     private TextView name;
@@ -36,8 +34,10 @@ public class UserAccountActivity extends AppCompatActivity {
     private TextView statuses_count;
     private TweetModel model = TweetModel.getInstance();
     private User user;
+    private Button follow_button;
     private TweetAdapter adapterTweet;
     private OAuthUserTimelineTask userTimelineTask;
+    private Button unfollow_button;
 
 
 
@@ -48,11 +48,6 @@ public class UserAccountActivity extends AppCompatActivity {
         adapterTweet = new TweetAdapter(this,R.layout.tweet_list_item, model.getTweets());
         adapterTweet.clear();
 
-        user = model.getUserShow();
-
-        userTimelineTask = new OAuthUserTimelineTask(adapterTweet);
-        userTimelineTask.execute();
-
         while (user == null) {
             try {
                 Thread.sleep(1000);
@@ -61,6 +56,10 @@ public class UserAccountActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        Log.d("usershow", "getusershow" + user);
+        userTimelineTask = new OAuthUserTimelineTask(adapterTweet);
+        userTimelineTask.execute();
+
 
         name = (TextView) findViewById(R.id.profile_name);
         screen_name = (TextView) findViewById(R.id.profile_screen_name);
@@ -71,7 +70,8 @@ public class UserAccountActivity extends AppCompatActivity {
         lv_user_statuses = (ListView) findViewById(R.id.profile_statuses_user_show);
         friends_count = (TextView) findViewById(R.id.profile_following);
         statuses_count = (TextView) findViewById(R.id.profile_amount_tweets);
-
+        follow_button = (Button)findViewById(R.id.follow_btn);
+        unfollow_button = (Button)findViewById(R.id.btn_destroy);
         if (!user.getProfile_image_url().isEmpty()) {
             Picasso.with(this).load(user.getProfile_image_url()).fit().into(profile_image);
         }
@@ -91,6 +91,45 @@ public class UserAccountActivity extends AppCompatActivity {
             npe.getMessage();
             Log.d("profile", "onCreate: ");
         }
+
+        Log.d("profile", "following: " + user.getFollowing());
+        // TODO: 23-6-2016 als hij de persoon al volgt is alleen de unfollow druk baar en andersom alleen de follow button.
+
+
+               if (user.getFollowing() == true){
+                   follow_button.setEnabled(false);
+               }
+               unfollow_button.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       String screen_name = user.getScreen_name();
+                       OAuthFriendshipDestroy destroy = new OAuthFriendshipDestroy();
+                       destroy.execute(screen_name);
+                       follow_button.setEnabled(true);
+                       unfollow_button.setEnabled(false);
+
+                   }
+               });
+
+               if (user.getFollowing()== false){
+                   unfollow_button.setEnabled(false);
+               }
+               follow_button.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       String screen_name = user.getScreen_name();
+                       OAuthFriendshipCreate create = new OAuthFriendshipCreate();
+                       create.execute(screen_name);
+                       unfollow_button.setEnabled(true);
+                       follow_button.setEnabled(false);
+                   }
+               });
+
+
+
+
+
+
 
     }
     @Override

@@ -28,11 +28,14 @@
 
     <ImageButton
         android:id="@+id/profile_image_timeline"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="15dp"
-        android:padding="10dp" />
+        android:layout_marginLeft="10dp"
+        android:scaleType="fitXY"
+        android:background="#FFFFFF"
+         />
 
     <TextView
         android:id="@+id/tweet"
