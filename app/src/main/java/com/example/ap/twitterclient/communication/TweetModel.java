@@ -19,7 +19,7 @@ public class TweetModel {
     private static final String API_SECRET = "B1QHXI7AC5SUPxZFGE1cFsaf88FvjMsurJ3mx05VYZjmzTco0M";
     private static final String CALLBACK_URL = "https://erjeans.com";
     private String access_string;
-    private List<Tweet> tweets= new ArrayList<>();
+    private List<Tweet> tweets = new ArrayList<>();
     private User user;
     private User userShow;
 
@@ -30,11 +30,13 @@ public class TweetModel {
             build(TwitterAPI.getInstance());
 
     private static TweetModel instance;
-    private TweetModel(){
+
+    private TweetModel() {
 
     }
-    public static TweetModel getInstance(){
-        if (instance == null){
+
+    public static TweetModel getInstance() {
+        if (instance == null) {
             instance = new TweetModel();
         }
         return instance;
@@ -60,12 +62,12 @@ public class TweetModel {
         this.access_string = access_string;
     }
 
-    public void addTweets(Tweet tweet){
+    public void addTweets(Tweet tweet) {
         tweets.add(tweet);
         Log.d("list", "addTweets: " + tweets);
     }
 
-    public void clearTweetList(){
+    public void clearTweetList() {
         tweets.clear();
     }
 
@@ -82,14 +84,15 @@ public class TweetModel {
         this.user = u;
         Log.d("user", "addUser: " + this.user);
     }
-    public void setUserShow(User u){
+
+    public void setUserShow(User u) {
         this.userShow = u;
         Log.d("user", "addUsershow: " + this.userShow);
 
     }
 
-    public User getUserShow(){
-        Log.d("usershow" , "tweetmodel" + userShow);
+    public User getUserShow() {
+        Log.d("usershow", "tweetmodel" + userShow);
         return userShow;
     }
 

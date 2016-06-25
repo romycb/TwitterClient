@@ -22,11 +22,12 @@ public class OAuthFriendshipDestroy extends AsyncTask<String, Void, String> {
     private OAuthRequest request;
     private OAuth1AccessToken accessToken = api.getAccess_token();
     private Response response;
+
     @Override
     protected String doInBackground(String... params) {
         String screen_name = params[0];
         try {
-            request = new OAuthRequest(Verb.POST, "https://api.twitter.com/1.1/friendships/destroy.json?screen_name="+ URLEncoder.encode(screen_name, "UTF-8"), authService);
+            request = new OAuthRequest(Verb.POST, "https://api.twitter.com/1.1/friendships/destroy.json?screen_name=" + URLEncoder.encode(screen_name, "UTF-8"), authService);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

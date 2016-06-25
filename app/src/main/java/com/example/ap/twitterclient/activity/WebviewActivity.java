@@ -22,11 +22,8 @@ import com.example.ap.twitterclient.view.TweetAdapter;
 
 public class WebviewActivity extends AppCompatActivity {
     private TwitterAPI api = TwitterAPI.getInstance();
-    private TweetModel model = TweetModel.getInstance();
     private WebView webView;
-    private TweetAdapter adapterTweet;
     private OAuthAccessTask accessTask;
-    private OAuthUserTimelineTask task;
     private String verifier;
 
     @Override

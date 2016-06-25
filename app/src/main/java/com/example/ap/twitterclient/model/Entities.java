@@ -14,18 +14,15 @@ import java.util.List;
  */
 public class Entities {
     private List<Hashtag> hashtags;
-    private List<Symbol> symbols;
     private List<UserMention> userMentions;
     private List<Url> urls;
-   // private List<Media> mediaLijst;
 
     public Entities(JSONObject object) {
 
         hashtags = new ArrayList<>();
-        symbols = new ArrayList<>();
         userMentions = new ArrayList<>();
         urls = new ArrayList<>();
-    //    mediaLijst = new ArrayList<>();
+
 
         //Hashtag ophalen en sturen naar Hashtag klasse
         try {
@@ -69,21 +66,6 @@ public class Entities {
         }
 
 
-        // media ophalen en naar de media klasse sturen
-//        try {
-//            JSONArray mediaArray = object.getJSONArray("media");
-//            for (int i = 0; i < mediaArray.length(); i++) {
-//                JSONObject mediaObject = mediaArray.getJSONObject(i);
-//                Media media = new Media(mediaObject.getInt("id"), mediaObject.getString("id_str"),
-//                        mediaObject.getJSONArray("indices"), mediaObject.getString("media_url"),
-//                        mediaObject.getString("media_url_https"), mediaObject.getString("url"),
-//                        mediaObject.getString("display_url"), mediaObject.getString("expanded_url"),
-//                        mediaObject.getString("type"), mediaObject.getJSONObject("sizes"));
-//                mediaLijst.add(media);
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public List<Hashtag> getHashtags() {
@@ -98,7 +80,5 @@ public class Entities {
         return userMentions;
     }
 
-//    public List<Media> getMedia() {
-//        return mediaLijst;
-//    }
+
 }

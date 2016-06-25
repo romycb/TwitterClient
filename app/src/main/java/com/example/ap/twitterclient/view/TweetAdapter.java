@@ -117,14 +117,6 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 
                 screen_name = model.getTweets().get(position).getUser().getScreen_name();
 
-                while(screen_name == null){
-                    try {
-                        Thread.sleep(1000);
-                        screen_name = model.getTweets().get(position).getUser().getScreen_name();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
                 userShowTask = new OAuthUserShowTask();
                 userShowTask.execute(screen_name);
 
@@ -140,23 +132,8 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
                     context.startActivity(intent2);
                 }
 
-
-
-
             }
         });
-
-        // TODO: media ophalen uit tweet en laten zien (plaatjes etc.)
-
-//        Entities entity = currentTweet.getEntities();
-//        String media = entity.getMedia().get(position).getDisplay_url();
-//        testImage.set
-
-//        if (currentTweet.getEntities().)
-//        String media = currentTweet.getEntities().getMedia().get(position).getDisplay_url();
-//        if (currentTweet.getEntities().getMedia().size() > 0){
-//            media = currentTweet.getEntities().getMedia().get(position);
-
 
 
         return convertView;

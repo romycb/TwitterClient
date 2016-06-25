@@ -32,13 +32,10 @@ public class TweetPostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 postTask = new OAuthPostTask();
                 postTask.execute(post_et.getText().toString());
-                // TODO: 22-6-2016 controle uitvoeren voor of de tweet goed verstuurd is.
                 Intent profile = new Intent(TweetPostActivity.this, ProfileActivity.class);
                 startActivity(profile);
             }
         });
-
-
 
 
     }

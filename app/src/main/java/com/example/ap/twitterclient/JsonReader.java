@@ -63,26 +63,26 @@ public class JsonReader {
         return tweetList;
     }
 
-    public List<Tweet> getUserStatusesFromJson(String response){
+    public List<Tweet> getUserStatusesFromJson(String response) {
         List<Tweet> userTweets = new ArrayList<>();
 
-            try {
-                JSONArray jsonArray =  new JSONArray(response);
+        try {
+            JSONArray jsonArray = new JSONArray(response);
 
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject tweetObj = jsonArray.getJSONObject(i);
-                    Tweet tweet = new Tweet(tweetObj);
-                    userTweets.add(tweet);
-                }
-
-            } catch (JSONException e) {
-                Log.d("assets inlezen", "JsonString:" + e.getMessage());
-            }
-            for (int i = 0; i < userTweets.size(); i++) {
-                Log.d("json tweets", "doInBackground: " + userTweets.get(i));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject tweetObj = jsonArray.getJSONObject(i);
+                Tweet tweet = new Tweet(tweetObj);
+                userTweets.add(tweet);
             }
 
-            return userTweets;
+        } catch (JSONException e) {
+            Log.d("assets inlezen", "JsonString:" + e.getMessage());
+        }
+        for (int i = 0; i < userTweets.size(); i++) {
+            Log.d("json tweets", "doInBackground: " + userTweets.get(i));
+        }
+
+        return userTweets;
 
     }
 

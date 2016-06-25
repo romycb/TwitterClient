@@ -22,11 +22,6 @@ public class TimelineActivity extends AppCompatActivity {
     private OAuthHomeTimelineTask homeTimelineTask;
     private ListView lv;
 
-    //toegevoegd
-//    private ImageView iv;
-//    private  OAuthUserShowTask userShowTask;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,26 +35,9 @@ public class TimelineActivity extends AppCompatActivity {
 
 
         lv = (ListView) findViewById(R.id.listViewHomeTimeline);
-//        iv = (ImageView) findViewById(R.id.profile_image_timeline);
 
         lv.setAdapter(adapterTweet);
 
-
-//        iv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                adapterTweet.clear();
-//                int position =  adapterTweet.getPosition();
-//                String screen_name = model.getTweets().get(position).getUser().getScreen_name();
-//
-//
-//                userShowTask = new OAuthUserShowTask();
-//                userShowTask.execute(screen_name);
-//
-//                adapterTweet.setUserShow();
-//                adapterTweet.notifyDataSetChanged();
-//            }
-//        });
     }
 
     @Override

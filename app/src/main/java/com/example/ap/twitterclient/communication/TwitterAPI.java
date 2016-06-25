@@ -24,11 +24,12 @@ public class TwitterAPI extends DefaultApi10a {
 
     private String request_token;
     private String authurl;
-    private OAuth1AccessToken access_token ;
+    private OAuth1AccessToken access_token;
     private String authorization_url = "https://api.twitter.com/oauth/authorize?oauth_token=";
     private String verifier;
     private String url;
     private OAuth1RequestToken reqToken;
+
     private TwitterAPI() {
 
     }
@@ -66,11 +67,11 @@ public class TwitterAPI extends DefaultApi10a {
     }
 
 
-    public  OAuth1AccessToken getAccess_token() {
+    public OAuth1AccessToken getAccess_token() {
         return access_token;
     }
 
-    public void setAccess_token( OAuth1AccessToken access_token) {
+    public void setAccess_token(OAuth1AccessToken access_token) {
         this.access_token = access_token;
     }
 

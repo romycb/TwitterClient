@@ -42,7 +42,4 @@ public class LoginActivity extends AppCompatActivity {
 
 }
 
-// TODO: 22-6-2016 er moeten volgens mij meerdere adapters komen omdat de tweetlist uit verschillende activities samenkomen in 1 wat niet de bedoeling is.
-// TODO: 22-6-2016  de picasso dinges doet het wel gewoon, maar als de banner of profile foto leeg is crashed die.
-// TODO: 22-6-2016 bij tweet post moet even iets komen dat die een melding geeft als een tweet fout ging.  
 

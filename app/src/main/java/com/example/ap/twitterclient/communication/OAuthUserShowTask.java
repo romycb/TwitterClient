@@ -31,8 +31,7 @@ public class OAuthUserShowTask extends AsyncTask<String, Void, String> {
 
 
         try {
-            request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/users/show.json?screen_name="+  URLEncoder.encode(params[0], "UTF-8"), authService);
-
+            request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/users/show.json?screen_name=" + URLEncoder.encode(params[0], "UTF-8"), authService);
 
 
         } catch (UnsupportedEncodingException e) {
@@ -48,7 +47,6 @@ public class OAuthUserShowTask extends AsyncTask<String, Void, String> {
 
 
         Log.d("response", "show " + response);
-
 
 
         //Het ophalen van de json file.
@@ -69,4 +67,4 @@ public class OAuthUserShowTask extends AsyncTask<String, Void, String> {
         return null;
     }
 
-    }
+}

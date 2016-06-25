@@ -27,7 +27,7 @@ public class OAuthPostTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
 
         try {
-            request = new OAuthRequest(Verb.POST, "https://api.twitter.com/1.1/statuses/update.json?status="+ URLEncoder.encode(params[0], "UTF-8") , authService);
+            request = new OAuthRequest(Verb.POST, "https://api.twitter.com/1.1/statuses/update.json?status=" + URLEncoder.encode(params[0], "UTF-8"), authService);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

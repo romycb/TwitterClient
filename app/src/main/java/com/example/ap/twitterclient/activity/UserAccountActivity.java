@@ -94,10 +94,7 @@ public class UserAccountActivity extends AppCompatActivity {
             npe.getMessage();
             Log.d("profile", "onCreate: ");
         }
-
-        Log.d("profile", "following: " + user.getFollowing());
-        // TODO: 23-6-2016 als hij de persoon al volgt is alleen de unfollow druk baar en andersom alleen de follow button.
-
+        // controle of de user de andere gebruiker al volgde.
 
                if (user.getFollowing() == true){
                    follow_button.setEnabled(false);
@@ -127,12 +124,6 @@ public class UserAccountActivity extends AppCompatActivity {
                        follow_button.setEnabled(false);
                    }
                });
-
-
-
-
-
-
 
     }
     @Override

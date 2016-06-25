@@ -27,7 +27,6 @@ public class OAuthUserTask extends AsyncTask<String, Void, String> {
     private OAuth1AccessToken accessToken = api.getAccess_token();
     private Response response;
     private String res;
-    private boolean b;
 
     @Override
     protected String doInBackground(String... params) {
@@ -55,7 +54,6 @@ public class OAuthUserTask extends AsyncTask<String, Void, String> {
 
             return res;
         }
-
 
 
         return null;

@@ -56,7 +56,7 @@ public class User {
             profile_image_url = object.optString("profile_image_url");
             following = object.getBoolean("following");
             user = new User(id_str, name, screen_name, description, followers_count,
-                    friends_count, statuses_count, profile_image_url, profile_banner_url,following);
+                    friends_count, statuses_count, profile_image_url, profile_banner_url, following);
             Log.d("User", "User: " + user);
 
         } catch (JSONException e) {
