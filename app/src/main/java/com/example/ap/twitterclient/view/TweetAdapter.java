@@ -87,8 +87,8 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         for (int i = 0; i < currentTweet.getEntities().getUserMentions().size(); i++) {
             try {
                 tweetText.setSpan(new ForegroundColorSpan(Color.rgb(0, 132, 180)),
-                        currentTweet.getEntities().getUrls().get(i).getBeginIndex()
-                        , currentTweet.getEntities().getUrls().get(i).getEndIndex(),
+                        currentTweet.getEntities().getUserMentions().get(i).getBeginIndex()
+                        , currentTweet.getEntities().getUserMentions().get(i).getEndIndex(),
                         SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
             }catch (IndexOutOfBoundsException ioobe){
                 ioobe.printStackTrace();

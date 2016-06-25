@@ -12,20 +12,19 @@ public class UserMention {
     private String name;
     private int id;
     private String id_str;
-    private int[] indices = new int[2];
+    private int[] indices;
     private int beginIndex;
     private int endIndex;
 
     public UserMention(String screen_name, String name, int id, String id_str, JSONArray indicesArray) {
         try {
-
+            indices = new int[2];
             this.screen_name = screen_name;
             this.name = name;
             this.id = id;
             this.id_str = id_str;
             for (int i = 0; i < indicesArray.length(); i++) {
-                int index = 0;
-                index = indicesArray.getInt(i);
+                int index = indicesArray.getInt(i);
                 indices[i] = index;
 
             }

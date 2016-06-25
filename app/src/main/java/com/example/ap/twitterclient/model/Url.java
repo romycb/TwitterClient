@@ -32,7 +32,6 @@ public class Url {
 
     }
 
-
     public String getDisplay_url() {
         return display_url;
     }
