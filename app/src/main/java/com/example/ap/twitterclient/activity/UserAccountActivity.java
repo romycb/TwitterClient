@@ -45,8 +45,9 @@ public class UserAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oauth_user_show_task);
+
         adapterTweet = new TweetAdapter(this,R.layout.tweet_list_item, model.getTweets());
-        adapterTweet.clear();
+
 
         while (user == null) {
             try {
@@ -58,7 +59,7 @@ public class UserAccountActivity extends AppCompatActivity {
         }
         Log.d("usershow", "getusershow" + user);
         userTimelineTask = new OAuthUserTimelineTask(adapterTweet);
-        userTimelineTask.execute();
+        userTimelineTask.execute(user.getId_str());
 
 
         name = (TextView) findViewById(R.id.profile_name);
@@ -78,6 +79,8 @@ public class UserAccountActivity extends AppCompatActivity {
         if (!user.getProfile_banner_url().isEmpty()) {
             Picasso.with(this).load(user.getProfile_banner_url()).fit().into(profile_banner);
         }
+
+        adapterTweet.clear();
 
         try {
             lv_user_statuses.setAdapter(adapterTweet);

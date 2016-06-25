@@ -12,6 +12,8 @@ import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth10aService;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -36,7 +38,12 @@ public class OAuthUserTimelineTask extends AsyncTask<String, Void, List<Tweet>> 
 
     @Override
     protected List<Tweet> doInBackground(String... params) {
-        request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/user_timeline.json", authService);
+
+        String id_Str = "";
+        if (params.length == 1) id_Str = "?user_id=" + params[0];
+
+        request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/user_timeline.json" + id_Str, authService);
+
         Log.d("request", "doInBackground: " + request);
 
         //Het tekenen van het request
@@ -49,7 +56,7 @@ public class OAuthUserTimelineTask extends AsyncTask<String, Void, List<Tweet>> 
             JsonReader jsonReader = JsonReader.getInstance();
             tweets = jsonReader.getUserStatusesFromJson(res);
 
-            Log.d("tweet", "doInBackground: " +tweets);
+            Log.d("tweet", "doInBackground: " + tweets);
             Log.d("user_timeline", "authservice " + res);
             return tweets;
         }
@@ -62,6 +69,7 @@ public class OAuthUserTimelineTask extends AsyncTask<String, Void, List<Tweet>> 
     protected void onPostExecute(List<Tweet> tweets) {
         if (tweets != null) {
             for (int i = 0; i < tweets.size(); i++) {
+
                 model.addTweets(tweets.get(i));
 
             }

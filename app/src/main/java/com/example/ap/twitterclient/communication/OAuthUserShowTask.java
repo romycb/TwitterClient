@@ -17,7 +17,8 @@ import java.net.URLEncoder;
 /**
  * Created by Evi on 23-6-2016.
  */
-public class OAuthUserShowTask extends AsyncTask<String, Void, String> { private TwitterAPI api = TwitterAPI.getInstance();
+public class OAuthUserShowTask extends AsyncTask<String, Void, String> {
+    private TwitterAPI api = TwitterAPI.getInstance();
     private TweetModel model = TweetModel.getInstance();
     private OAuth10aService authService = model.getAuthService();
     private OAuthRequest request;
