@@ -31,13 +31,10 @@ public class OAuthFriendshipDestroy extends AsyncTask<String, Void, String> {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        Log.d("request", "doInBackground: " + request);
 
         //Het tekenen van het request
-        Log.d("accessToken", "doInBackground: " + accessToken);
         authService.signRequest(accessToken, request);
         response = request.send();
-        Log.d("post response", "doInBackground: " + response);
 
 
         return null;

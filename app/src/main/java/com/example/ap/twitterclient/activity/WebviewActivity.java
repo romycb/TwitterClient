@@ -45,7 +45,6 @@ public class WebviewActivity extends AppCompatActivity {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
             if (url.startsWith("https://erjeans.com")) {
-                Log.d("url", "shouldOverrideUrlLoading:" + url);
                 Uri uri = Uri.parse(url);
                 //Het ophalen van de oauth_verifier uit de link.
                 verifier = uri.getQueryParameter("oauth_verifier");
@@ -66,7 +65,6 @@ public class WebviewActivity extends AppCompatActivity {
 
 
             } else {
-                Log.d("fout", "shouldOverrideUrlLoading: ");
             }
             return false;
         }

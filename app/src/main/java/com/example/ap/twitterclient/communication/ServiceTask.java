@@ -30,10 +30,8 @@ public class ServiceTask extends AsyncTask<String, Void, String> {
 
         reqToken = authService.getRequestToken();
         api.setReqToken(reqToken);
-        Log.d("reqtoken", "doInBackground: " + reqToken);
         authurl = authService.getAuthorizationUrl(reqToken);
         api.setAuthurl(authurl);
-        Log.d("authurl", "doInBackground:" + authurl);
 
 
         api.setUrl(authurl);

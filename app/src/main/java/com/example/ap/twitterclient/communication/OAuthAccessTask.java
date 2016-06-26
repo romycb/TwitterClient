@@ -19,7 +19,6 @@ public class OAuthAccessTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         accessToken = authService.getAccessToken(api.getReqToken(), params[0]);
         api.setAccess_token(accessToken);
-        Log.d("access class", "doInBackground: " + accessToken);
 
         return null;
     }

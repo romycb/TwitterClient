@@ -44,29 +44,22 @@ public class SearchTask extends AsyncTask<String, Void, List<Tweet>> {
             conn.setRequestMethod("GET");
 
             String access_token = model.getAccess_string();
-            Log.d("access_token search", "doInBackground: " + access_token);
             if (access_token != null) {
                 conn.addRequestProperty("Authorization", "Bearer " + access_token);
             }
 
             conn.setDoInput(true);
-            Log.d("responseCode", "doInBackground: " + conn.getResponseCode());
 
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream is = conn.getInputStream();
                 String response = IOUtils.toString(is, "UTF-8");
                 IOUtils.closeQuietly(is);
-                Log.d("response", "doInBackground: " + response);
 
-//                JsonReader jsonReader = new JsonReader();
                 JsonReader jsonReader = JsonReader.getInstance();
                 tweets = jsonReader.getTweetsFromJsonString(response);
 
                 return tweets;
             } else {
-
-                // TODO: error ophalen (doordat je niet authorized bent)
-                // TODO: methode maken in jsonreader, die errors leest (get error stream)
 
                 InputStream is = conn.getErrorStream();
                 String response = IOUtils.toString(is, "UTF-8");
@@ -86,20 +79,14 @@ public class SearchTask extends AsyncTask<String, Void, List<Tweet>> {
 
     @Override
     protected void onPostExecute(List<Tweet> tweets) {
-        for (int i = 0; i < tweets.size(); i++) {
-            Log.d("tweetpost", "onPostExecute: " + tweets.get(i));
-
-        }
 
         if (tweets != null) {
             for (int i = 0; i < tweets.size(); i++) {
                 model.addTweets(tweets.get(i));
-                Log.d("singletontweets", "onPostExecute: " + model.getTweets().get(i));
             }
 
         } else {
 
-            Log.d("search for tweets ", "no tweets collected");
         }
 
         adapterTweet.notifyDataSetChanged();

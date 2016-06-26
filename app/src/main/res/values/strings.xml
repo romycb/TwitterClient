@@ -15,4 +15,5 @@
     <string name="maximale_tekens">140 characters max</string>
     <string name="follow">FOLLOW</string>
     <string name="unfollow">UNFOLLOW</string>
+    <string name="logout">LOG OUT</string>
 </resources>

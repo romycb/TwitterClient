@@ -17,6 +17,7 @@ import com.example.ap.twitterclient.R;
 import com.example.ap.twitterclient.communication.OAuthUserTask;
 import com.example.ap.twitterclient.communication.TweetModel;
 import com.example.ap.twitterclient.communication.OAuthUserTimelineTask;
+import com.example.ap.twitterclient.communication.TwitterAPI;
 import com.example.ap.twitterclient.model.User;
 import com.example.ap.twitterclient.view.TweetAdapter;
 import com.squareup.picasso.Picasso;
@@ -60,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        Log.d("user not empty", "oncreate" + user);
+
         userTimelineTask = new OAuthUserTimelineTask(adapterTweet);
         userTimelineTask.execute();
 
@@ -92,8 +93,9 @@ public class ProfileActivity extends AppCompatActivity {
             statuses_count.setText(user.getStatuses_count() + " tweets");
         } catch (NullPointerException npe) {
             npe.getMessage();
-            Log.d("profile", "onCreate: ");
         }
+
+
 
     }
 

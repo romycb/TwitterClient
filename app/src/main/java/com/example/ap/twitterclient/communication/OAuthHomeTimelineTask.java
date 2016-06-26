@@ -36,7 +36,6 @@ public class OAuthHomeTimelineTask extends AsyncTask<String, Void, List<Tweet>> 
     @Override
     protected List<Tweet> doInBackground(String... params) {
         request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/home_timeline.json", authService);
-        Log.d("request", "doInBackground: " + request);
 
         //Het tekenen van het request
         authService.signRequest(accessToken, request);
@@ -48,8 +47,6 @@ public class OAuthHomeTimelineTask extends AsyncTask<String, Void, List<Tweet>> 
             JsonReader jsonReader = JsonReader.getInstance();
             tweets = jsonReader.getUserStatusesFromJson(res);
 
-            Log.d("tweet", "doInBackground: " + tweets);
-            Log.d("user_timeline", "authservice " + res);
             return tweets;
         }
 
@@ -62,12 +59,10 @@ public class OAuthHomeTimelineTask extends AsyncTask<String, Void, List<Tweet>> 
         if (tweets != null) {
             for (int i = 0; i < tweets.size(); i++) {
                 model.addTweets(tweets.get(i));
-                Log.d("singletontweets", "onPostExecute: " + model.getTweets().get(i));
             }
 
         } else {
 
-            Log.d("search for tweets ", "no tweets collected");
         }
         adapterTweet.notifyDataSetChanged();
     }

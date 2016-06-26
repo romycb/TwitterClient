@@ -40,7 +40,6 @@ public class SearchActivity extends AppCompatActivity {
         authorization.execute();
 
         while (model.getAccess_string() == null) {
-            Log.d("access code unavailable", "onCreate: ");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -88,6 +87,6 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(home);
                 break;
         }
-        return true;
-    }
+    return true;
+}
 }

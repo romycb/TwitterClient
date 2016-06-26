@@ -33,10 +33,9 @@ public class OAuthUserTask extends AsyncTask<String, Void, String> {
 
 
         request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json", authService);
-        Log.d("request", "doInBackground: " + request);
+
 
         //Het tekenen van het request
-        Log.d("accessToken", "doInBackground: " + accessToken);
         authService.signRequest(accessToken, request);
         response = request.send();
 
@@ -45,12 +44,10 @@ public class OAuthUserTask extends AsyncTask<String, Void, String> {
         if (response.isSuccessful()) {
             res = response.getBody();
 
-            Log.d("response", "authservice " + res);
 
             JsonReader jsonReader = JsonReader.getInstance();
             User user = jsonReader.getUserFromJson(res);
             model.addUser(user);
-            Log.d("user", "doInBackground: " + user);
 
             return res;
         }

@@ -64,7 +64,6 @@ public class TweetModel {
 
     public void addTweets(Tweet tweet) {
         tweets.add(tweet);
-        Log.d("list", "addTweets: " + tweets);
     }
 
     public void clearTweetList() {
@@ -72,7 +71,6 @@ public class TweetModel {
     }
 
     public List<Tweet> getTweets() {
-        Log.d("list", "getTweets: " + tweets);
         return tweets;
     }
 
@@ -82,17 +80,14 @@ public class TweetModel {
 
     public void addUser(User u) {
         this.user = u;
-        Log.d("user", "addUser: " + this.user);
     }
 
     public void setUserShow(User u) {
         this.userShow = u;
-        Log.d("user", "addUsershow: " + this.userShow);
 
     }
 
     public User getUserShow() {
-        Log.d("usershow", "tweetmodel" + userShow);
         return userShow;
     }
 

@@ -38,27 +38,20 @@ public class OAuthUserShowTask extends AsyncTask<String, Void, String> {
             e.printStackTrace();
 
         }
-        Log.d("request show task", "doInBackground: " + request);
-
         //Het tekenen van het request
-        Log.d("accessToken show task", "doInBackground: " + accessToken);
         authService.signRequest(accessToken, request);
         response = request.send();
 
 
-        Log.d("response", "show " + response);
 
 
         //Het ophalen van de json file.
         if (response.isSuccessful()) {
             res = response.getBody();
 
-            Log.d("response", "authservice show task " + res);
-
             JsonReader jsonUser = JsonReader.getInstance();
             User user = jsonUser.getUserFromJson(res);
             model.setUserShow(user);
-            Log.d("user", "doInBackground: " + user);
 
             return res;
         }

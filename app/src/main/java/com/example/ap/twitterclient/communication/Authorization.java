@@ -35,7 +35,8 @@ public class Authorization extends AsyncTask<Void, Void, String> {
             conn.setRequestMethod("POST");
 
             //Encode API key and secret.
-            String authString = URLEncoder.encode(tweetModel.getApiKey(), CHARSET_UTF_8) + ":" + URLEncoder.encode(tweetModel.getApiSecret(), CHARSET_UTF_8);
+            String authString = URLEncoder.encode(tweetModel.getApiKey(), CHARSET_UTF_8) + ":" +
+                    URLEncoder.encode(tweetModel.getApiSecret(), CHARSET_UTF_8);
 
             //Apply Base64 encoding on the encode string.
             String authStringBase64 = Base64.encodeToString(authString.getBytes(CHARSET_UTF_8), Base64.NO_WRAP);
@@ -54,7 +55,7 @@ public class Authorization extends AsyncTask<Void, Void, String> {
             os.close();
 
             String response = "";
-            // reading in the answer with inputstream reader
+            // inlezen van het antwoord met de inputstream.
 
             if (HttpURLConnection.HTTP_OK == conn.getResponseCode()) {
                 InputStream is = conn.getInputStream();
@@ -74,7 +75,6 @@ public class Authorization extends AsyncTask<Void, Void, String> {
                     conn.disconnect();
                 }
             }
-            Log.d("access_token async", "doInBackground: " + tweetModel.getAccess_string());
 
             return tweetModel.getAccess_string();
 

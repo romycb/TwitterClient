@@ -44,8 +44,6 @@ public class OAuthUserTimelineTask extends AsyncTask<String, Void, List<Tweet>> 
 
         request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/user_timeline.json" + id_Str, authService);
 
-        Log.d("request", "doInBackground: " + request);
-
         //Het tekenen van het request
         authService.signRequest(accessToken, request);
         response = request.send();
@@ -56,8 +54,6 @@ public class OAuthUserTimelineTask extends AsyncTask<String, Void, List<Tweet>> 
             JsonReader jsonReader = JsonReader.getInstance();
             tweets = jsonReader.getUserStatusesFromJson(res);
 
-            Log.d("tweet", "doInBackground: " + tweets);
-            Log.d("user_timeline", "authservice " + res);
             return tweets;
         }
 
@@ -76,7 +72,6 @@ public class OAuthUserTimelineTask extends AsyncTask<String, Void, List<Tweet>> 
 
         } else {
 
-            Log.d("search for tweets ", "no tweets collected");
         }
         adapterTweet.notifyDataSetChanged();
     }

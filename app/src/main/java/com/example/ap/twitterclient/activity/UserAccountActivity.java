@@ -57,7 +57,6 @@ public class UserAccountActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        Log.d("usershow", "getusershow" + user);
         userTimelineTask = new OAuthUserTimelineTask(adapterTweet);
         userTimelineTask.execute(user.getId_str());
 
@@ -92,7 +91,6 @@ public class UserAccountActivity extends AppCompatActivity {
             statuses_count.setText(user.getStatuses_count() + " tweets");
         } catch (NullPointerException npe) {
             npe.getMessage();
-            Log.d("profile", "onCreate: ");
         }
         // controle of de user de andere gebruiker al volgde.
 

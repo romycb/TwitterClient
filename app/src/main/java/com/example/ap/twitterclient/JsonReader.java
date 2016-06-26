@@ -54,11 +54,8 @@ public class JsonReader {
             }
 
         } catch (JSONException e) {
-            Log.d("assets inlezen", "JsonString:" + e.getMessage());
         }
-        for (int i = 0; i < tweetList.size(); i++) {
-            Log.d("json tweets", "doInBackground: " + tweetList.get(i));
-        }
+
 
         return tweetList;
     }
@@ -76,11 +73,8 @@ public class JsonReader {
             }
 
         } catch (JSONException e) {
-            Log.d("assets inlezen", "JsonString:" + e.getMessage());
         }
-        for (int i = 0; i < userTweets.size(); i++) {
-            Log.d("json tweets", "doInBackground: " + userTweets.get(i));
-        }
+
 
         return userTweets;
 

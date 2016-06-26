@@ -19,6 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     private ImageView twitterLogo;
     private ServiceTask serviceTask = new ServiceTask();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
