@@ -1,10 +1,5 @@
 package com.example.ap.twitterclient;
 
-import android.app.Activity;
-import android.content.res.AssetManager;
-import android.util.Log;
-
-import com.example.ap.twitterclient.communication.TweetModel;
 import com.example.ap.twitterclient.model.Tweet;
 import com.example.ap.twitterclient.model.User;
 
@@ -12,35 +7,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Evi on 29-4-2016.
+ * Created by romybeugeling on 29-4-2016.
  */
-public class JsonReader {
-
-    private static JsonReader instance;
-
-    private JsonReader() {
-
-    }
-
-    public static JsonReader getInstance() {
-        if (instance == null) {
-            instance = new JsonReader();
-        }
-        return instance;
-    }
+public abstract class JsonReader {
 
     /**
-     * @return
+     * Haalt bij het zoeken de tweets uit Json bestand.
+     * @param response JSON bestand
+     * @return List<Tweet> tweetList;
      */
-    public List<Tweet> getTweetsFromJsonString(String response) {
+    public static List<Tweet> getTweetsFromSearch(String response) {
         List<Tweet> tweetList = new ArrayList<>();
 
         try {
@@ -54,13 +34,17 @@ public class JsonReader {
             }
 
         } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-
         return tweetList;
     }
 
-    public List<Tweet> getUserStatusesFromJson(String response) {
+    /**
+     * Haalt tweets op uit JSON bestand
+     * @param response JSON bestand
+     * @return List<Tweet> userTweets;
+     */
+    public static List<Tweet> getStatusesFromJson(String response) {
         List<Tweet> userTweets = new ArrayList<>();
 
         try {
@@ -73,19 +57,22 @@ public class JsonReader {
             }
 
         } catch (JSONException e) {
+            e.printStackTrace();
         }
-
 
         return userTweets;
 
     }
 
-    public User getUserFromJson(String response) {
-
+    /**
+     * Haalt een User uit het JSON bestand
+     * @param response JSON bestand
+     * @return User;
+     */
+    public static User getUserFromJson(String response) {
         try {
-            JSONObject jsonobject = new JSONObject(response);
-            User u = new User(jsonobject);
-            return u;
+            JSONObject jsonObject = new JSONObject(response);
+            return new User(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }

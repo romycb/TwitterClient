@@ -4,26 +4,29 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * Created by romybeugeling on 20-05-16.
+ * Created by romybeugeling on 26-06-16.
  */
-public class UserMention{
 
-    private int[] indices;
+public class Media {
 
-    /**
-     * Constructor van UserMention
-     * @param indicesArray
-     */
-    UserMention(JSONArray indicesArray) {
+    private int[] indices = new int[2];
+    private String media_url;
+
+    Media(JSONArray indicesArray, String media_url) {
         try {
-            indices = new int[2];
             for (int i = 0; i < indicesArray.length(); i++) {
                 int index = indicesArray.getInt(i);
                 indices[i] = index;
             }
+
+            this.media_url = media_url;
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getMedia_url() {
+        return media_url;
     }
 
     public int getBeginIndex() {

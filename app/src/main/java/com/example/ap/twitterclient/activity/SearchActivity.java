@@ -3,7 +3,6 @@ package com.example.ap.twitterclient.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,7 +20,6 @@ import com.example.ap.twitterclient.view.TweetAdapter;
 public class SearchActivity extends AppCompatActivity {
     private SearchTask searchTask;
     private EditText searchField;
-    private Button searchButton;
     private TweetAdapter adapterTweet;
     private TweetModel model = TweetModel.getInstance();
 
@@ -50,7 +48,7 @@ public class SearchActivity extends AppCompatActivity {
         lv.setAdapter(adapterTweet);
 
         searchField = (EditText) findViewById(R.id.searchField);
-        searchButton = (Button) findViewById(R.id.searchbutton);
+        Button searchButton = (Button) findViewById(R.id.searchbutton);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +56,6 @@ public class SearchActivity extends AppCompatActivity {
                 searchTask = new SearchTask(adapterTweet);
                 searchTask.execute(searchField.getText().toString());
                 searchField.setText("");
-                model.clearTweetList();
             }
         });
     }
@@ -87,6 +84,6 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(home);
                 break;
         }
-    return true;
-}
+        return true;
+    }
 }

@@ -1,7 +1,6 @@
 package com.example.ap.twitterclient.communication;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.ap.twitterclient.JsonReader;
 import com.example.ap.twitterclient.model.Tweet;
@@ -18,13 +17,9 @@ import java.util.List;
  * Created by Evi on 22-6-2016.
  */
 public class OAuthHomeTimelineTask extends AsyncTask<String, Void, List<Tweet>> {
-    private OAuthRequest request;
     private TwitterAPI api = TwitterAPI.getInstance();
-    private Response response;
-    private List<Tweet> tweets;
     private TweetAdapter adapterTweet;
     private OAuth1AccessToken accessToken = api.getAccess_token();
-    private String res;
     private TweetModel model = TweetModel.getInstance();
     private OAuth10aService authService = model.getAuthService();
 
@@ -35,19 +30,16 @@ public class OAuthHomeTimelineTask extends AsyncTask<String, Void, List<Tweet>> 
 
     @Override
     protected List<Tweet> doInBackground(String... params) {
-        request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/home_timeline.json", authService);
+        OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/home_timeline.json", authService);
 
         //Het tekenen van het request
         authService.signRequest(accessToken, request);
-        response = request.send();
+        Response response = request.send();
 
         if (response.isSuccessful()) {
-            res = response.getBody();
+            String res = response.getBody();
 
-            JsonReader jsonReader = JsonReader.getInstance();
-            tweets = jsonReader.getUserStatusesFromJson(res);
-
-            return tweets;
+            return JsonReader.getStatusesFromJson(res);
         }
 
         return null;
@@ -60,9 +52,6 @@ public class OAuthHomeTimelineTask extends AsyncTask<String, Void, List<Tweet>> 
             for (int i = 0; i < tweets.size(); i++) {
                 model.addTweets(tweets.get(i));
             }
-
-        } else {
-
         }
         adapterTweet.notifyDataSetChanged();
     }

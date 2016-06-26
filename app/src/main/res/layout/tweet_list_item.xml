@@ -31,11 +31,10 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
-        android:scaleType="fitXY"
+        android:layout_marginTop="15dp"
         android:background="#FFFFFF"
-         />
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/tweet"
@@ -45,6 +44,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginStart="75dp"
         android:layout_marginTop="7dp"
+        android:paddingEnd="5dp"
         android:text="@string/name" />
 
     <TextView
@@ -53,7 +53,18 @@
         android:layout_height="20dp"
         android:layout_marginStart="320dp"
         android:layout_marginTop="15dp"
+        android:paddingEnd="5dp"
         android:text="@string/created_at"
         android:textSize="10dp" />
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/tweet"
+        android:layout_below="@id/tweet"
+        android:layout_toEndOf="@id/profile_image_timeline"
+        android:paddingEnd="5dp"
+        android:visibility="invisible" />
 
 </RelativeLayout>

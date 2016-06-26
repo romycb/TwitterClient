@@ -1,7 +1,6 @@
 package com.example.ap.twitterclient.communication;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.ap.twitterclient.JsonReader;
 import com.example.ap.twitterclient.model.User;
@@ -23,8 +22,6 @@ public class OAuthUserShowTask extends AsyncTask<String, Void, String> {
     private OAuth10aService authService = model.getAuthService();
     private OAuthRequest request;
     private OAuth1AccessToken accessToken = api.getAccess_token();
-    private Response response;
-    private String res;
 
     @Override
     protected String doInBackground(String... params) {
@@ -40,24 +37,19 @@ public class OAuthUserShowTask extends AsyncTask<String, Void, String> {
         }
         //Het tekenen van het request
         authService.signRequest(accessToken, request);
-        response = request.send();
-
-
+        Response response = request.send();
 
 
         //Het ophalen van de json file.
         if (response.isSuccessful()) {
-            res = response.getBody();
-
-            JsonReader jsonUser = JsonReader.getInstance();
-            User user = jsonUser.getUserFromJson(res);
+            String res = response.getBody();
+            User user = JsonReader.getUserFromJson(res);
             model.setUserShow(user);
-
-            return res;
+            return response.getBody();
         }
-
 
         return null;
     }
+
 
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Evi on 3-6-2016.
+ * Created by Evi and romybeugeling on 3-6-2016.
  */
 public class TweetModel {
 
@@ -32,7 +32,6 @@ public class TweetModel {
     private static TweetModel instance;
 
     private TweetModel() {
-
     }
 
     public static TweetModel getInstance() {
@@ -46,11 +45,11 @@ public class TweetModel {
         return authService;
     }
 
-    public static String getApiKey() {
+    static String getApiKey() {
         return API_KEY;
     }
 
-    public static String getApiSecret() {
+    static String getApiSecret() {
         return API_SECRET;
     }
 
@@ -58,31 +57,28 @@ public class TweetModel {
         return access_string;
     }
 
-    public void setAccess_string(String access_string) {
+    void setAccess_string(String access_string) {
         this.access_string = access_string;
     }
 
-    public void addTweets(Tweet tweet) {
+    void addTweets(Tweet tweet) {
         tweets.add(tweet);
     }
 
-    public void clearTweetList() {
-        tweets.clear();
-    }
-
     public List<Tweet> getTweets() {
+        Log.d("TweetModel", "getTweets: " + tweets);
         return tweets;
     }
 
-    public static String getCallbackUrl() {
+    private static String getCallbackUrl() {
         return CALLBACK_URL;
     }
 
-    public void addUser(User u) {
+    void addUser(User u) {
         this.user = u;
     }
 
-    public void setUserShow(User u) {
+    void setUserShow(User u) {
         this.userShow = u;
 
     }
@@ -90,7 +86,6 @@ public class TweetModel {
     public User getUserShow() {
         return userShow;
     }
-
 
     public User getUser() {
         return user;

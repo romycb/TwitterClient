@@ -1,7 +1,6 @@
 package com.example.ap.twitterclient.communication;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.ap.twitterclient.JsonReader;
 import com.example.ap.twitterclient.model.Tweet;
@@ -21,7 +20,6 @@ import java.util.List;
  */
 public class SearchTask extends AsyncTask<String, Void, List<Tweet>> {
     private TweetAdapter adapterTweet;
-    private List<Tweet> tweets;
     private TweetModel model = TweetModel.getInstance();
 
     public SearchTask(TweetAdapter adapterTweet) {
@@ -35,7 +33,6 @@ public class SearchTask extends AsyncTask<String, Void, List<Tweet>> {
         try {
 
             URL url = new URL("https://api.twitter.com/1.1/search/tweets.json?q=" + URLEncoder.encode(params[0], "UTF-8"));
-
 
             conn = (HttpURLConnection) url.openConnection();
 
@@ -55,10 +52,7 @@ public class SearchTask extends AsyncTask<String, Void, List<Tweet>> {
                 String response = IOUtils.toString(is, "UTF-8");
                 IOUtils.closeQuietly(is);
 
-                JsonReader jsonReader = JsonReader.getInstance();
-                tweets = jsonReader.getTweetsFromJsonString(response);
-
-                return tweets;
+                return JsonReader.getTweetsFromSearch(response);
             } else {
 
                 InputStream is = conn.getErrorStream();
@@ -77,6 +71,7 @@ public class SearchTask extends AsyncTask<String, Void, List<Tweet>> {
         return null;
     }
 
+
     @Override
     protected void onPostExecute(List<Tweet> tweets) {
 
@@ -84,15 +79,8 @@ public class SearchTask extends AsyncTask<String, Void, List<Tweet>> {
             for (int i = 0; i < tweets.size(); i++) {
                 model.addTweets(tweets.get(i));
             }
-
-        } else {
-
         }
 
         adapterTweet.notifyDataSetChanged();
-
-
     }
-
-
 }

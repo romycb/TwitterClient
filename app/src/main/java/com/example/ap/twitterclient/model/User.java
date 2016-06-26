@@ -1,7 +1,5 @@
 package com.example.ap.twitterclient.model;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,8 +7,6 @@ import org.json.JSONObject;
  * Created by romybeugeling on 29-04-16.
  */
 public class User {
-
-//    private int id;
 
     private String id_str;
     private String name;
@@ -22,11 +18,10 @@ public class User {
     private String profile_image_url;
     private String profile_banner_url;
     private User user;
-    private Entities entities;
     private Boolean following;
 
-    public User(String id_str, String name, String screen_name, String description, int followers_count,
-                int friends_count, int statuses_count, String profile_image_url, String profile_banner_url, Boolean following) {
+    private User(String id_str, String name, String screen_name, String description, int followers_count,
+                 int friends_count, int statuses_count, String profile_image_url, String profile_banner_url, Boolean following) {
         this.id_str = id_str;
         this.name = name;
         this.screen_name = screen_name;
@@ -40,37 +35,31 @@ public class User {
     }
 
     /**
-     * @param object
+     * Haalt User op uit het JSONobject en slaat nieuwe User op
+     * @param object JSONobject
      */
     public User(JSONObject object) {
         try {
             id_str = object.getString("id_str");
             name = object.getString("name");
             screen_name = object.getString("screen_name");
-            entities = new Entities(object.getJSONObject("entities"));
             description = object.getString("description");
             followers_count = object.getInt("followers_count");
             friends_count = object.getInt("friends_count");
             statuses_count = object.getInt("statuses_count");
             profile_banner_url = object.optString("profile_banner_url");
             profile_image_url = object.optString("profile_image_url");
-            following = object.getBoolean("following");
+            following = object.optBoolean("following");
+
             user = new User(id_str, name, screen_name, description, followers_count,
                     friends_count, statuses_count, profile_image_url, profile_banner_url, following);
-            Log.d("User", "User: " + user);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     public String getProfile_image_url() {
         return profile_image_url;
-    }
-
-    public Entities getEntities() {
-        return entities;
     }
 
     public String getId_str() {
@@ -113,11 +102,4 @@ public class User {
         return user;
     }
 
-    @Override
-    public String toString() {
-        return id_str + ", " + name + ", " + screen_name + ", " + description + ", " + followers_count + ", " +
-                friends_count + ", " + statuses_count + ", " + profile_image_url + ", " + profile_banner_url;
-
-
-    }
 }

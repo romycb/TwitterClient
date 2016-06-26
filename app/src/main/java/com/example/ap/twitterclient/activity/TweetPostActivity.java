@@ -12,11 +12,9 @@ import android.widget.EditText;
 
 import com.example.ap.twitterclient.R;
 import com.example.ap.twitterclient.communication.OAuthPostTask;
-import com.example.ap.twitterclient.view.TweetAdapter;
 
 public class TweetPostActivity extends AppCompatActivity {
-    OAuthPostTask postTask;
-    private Button post_button;
+    private OAuthPostTask postTask;
     private EditText post_et;
 
 
@@ -24,13 +22,13 @@ public class TweetPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tweet_post);
-        post_button = (Button) findViewById(R.id.post);
+        Button post_button = (Button) findViewById(R.id.post);
         post_et = (EditText) findViewById(R.id.post_et);
 
         post_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postTask = new OAuthPostTask();
+                postTask = new OAuthPostTask(TweetPostActivity.this);
                 postTask.execute(post_et.getText().toString());
                 Intent profile = new Intent(TweetPostActivity.this, ProfileActivity.class);
                 startActivity(profile);
@@ -39,6 +37,7 @@ public class TweetPostActivity extends AppCompatActivity {
 
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -48,8 +47,8 @@ public class TweetPostActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.search_button_actionbar:
                 Intent search = new Intent(this, SearchActivity.class);
                 startActivity(search);

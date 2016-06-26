@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -35,13 +36,10 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 
     private LayoutInflater inflater = null;
     private TweetModel model = TweetModel.getInstance();
-    private  OAuthUserShowTask userShowTask;
+    private OAuthUserShowTask userShowTask;
     private String screen_name;
     private Context context;
-    private int position;
-    private User user;
-    private User user2;
-
+    private User LoggedInUser;
 
 
     public TweetAdapter(Context context, int resource, List<Tweet> objects) {
@@ -56,7 +54,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
             convertView = inflater.inflate(R.layout.tweet_list_item, parent, false);
 
         }
-        this.position = position;
+//        this.position = position;
         Tweet currentTweet = getItem(position);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM", Locale.UK);
@@ -67,7 +65,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
                 tweetText.setSpan(new ForegroundColorSpan(Color.rgb(0, 132, 180)), currentTweet.getEntities().getHashtags().get(i).getBeginIndex(),
                         currentTweet.getEntities().getHashtags().get(i).getEndIndex(),
                         SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
-            } catch (IndexOutOfBoundsException ioobe){
+            } catch (IndexOutOfBoundsException ioobe) {
                 ioobe.printStackTrace();
             }
 
@@ -90,14 +88,34 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
                         currentTweet.getEntities().getUserMentions().get(i).getBeginIndex()
                         , currentTweet.getEntities().getUserMentions().get(i).getEndIndex(),
                         SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }catch (IndexOutOfBoundsException ioobe){
+            } catch (IndexOutOfBoundsException ioobe) {
                 ioobe.printStackTrace();
             }
-
         }
-        user = currentTweet.getUser();
-        user2= model.getUser();
 
+        if (!(currentTweet.getEntities().getMedia() == null)) {
+            try {
+                tweetText.setSpan(new ForegroundColorSpan(Color.rgb(0, 132, 180)),
+                        currentTweet.getEntities().getMedia().getBeginIndex()
+                        , currentTweet.getEntities().getMedia().getEndIndex(),
+                        SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } catch (IndexOutOfBoundsException ioobe) {
+                ioobe.printStackTrace();
+            }
+        }
+
+
+        User user = currentTweet.getUser();
+        LoggedInUser = model.getUser();
+
+        ImageView ivPhoto = (ImageView) convertView.findViewById(R.id.photo);
+
+        if (!(currentTweet.getEntities().getMedia() == null)) {
+            ivPhoto.setVisibility(View.VISIBLE);
+            Picasso.with(getContext()).load(currentTweet.getEntities().getMedia().getMedia_url()).into(ivPhoto);
+        } else {
+            ivPhoto.setVisibility(View.GONE);
+        }
 
         TextView tvText = (TextView) convertView.findViewById(R.id.tweet);
         TextView tvCreatedAt = (TextView) convertView.findViewById(R.id.created_at);
@@ -107,9 +125,11 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
         tvScreenName.setText("@" + currentTweet.getUser().getScreen_name());
         tvName.setText(currentTweet.getUser().getName());
 
+
         tvCreatedAt.setText(sdf.format(currentTweet.getCreated_at()));
         tvText.setText(tweetText);
         Picasso.with(getContext()).load(user.getProfile_image_url()).into(ivprofileImage);
+
 
         ivprofileImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,20 +142,18 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 
                 Log.d("name", "position" + screen_name);
 
-                if (!screen_name.equals(user2.getScreen_name())){
+                if (!screen_name.equals(LoggedInUser.getScreen_name())) {
                     Intent intent = new Intent(context, UserAccountActivity.class);
                     context.startActivity(intent);
 
 
-                }else {
+                } else {
                     Intent intent2 = new Intent(context, ProfileActivity.class);
                     context.startActivity(intent2);
                 }
 
             }
         });
-
-
         return convertView;
     }
 }

@@ -2,7 +2,6 @@ package com.example.ap.twitterclient.communication;
 
 import android.os.AsyncTask;
 import android.util.Base64;
-import android.util.Log;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
@@ -35,8 +34,8 @@ public class Authorization extends AsyncTask<Void, Void, String> {
             conn.setRequestMethod("POST");
 
             //Encode API key and secret.
-            String authString = URLEncoder.encode(tweetModel.getApiKey(), CHARSET_UTF_8) + ":" +
-                    URLEncoder.encode(tweetModel.getApiSecret(), CHARSET_UTF_8);
+            String authString = URLEncoder.encode(TweetModel.getApiKey(), CHARSET_UTF_8) + ":" +
+                    URLEncoder.encode(TweetModel.getApiSecret(), CHARSET_UTF_8);
 
             //Apply Base64 encoding on the encode string.
             String authStringBase64 = Base64.encodeToString(authString.getBytes(CHARSET_UTF_8), Base64.NO_WRAP);
@@ -63,7 +62,6 @@ public class Authorization extends AsyncTask<Void, Void, String> {
                 IOUtils.closeQuietly(is);
             }
 
-
             try {
                 JSONObject tokenJSon = new JSONObject(response);
                 tweetModel.setAccess_string(tokenJSon.getString("access_token"));
@@ -71,9 +69,7 @@ public class Authorization extends AsyncTask<Void, Void, String> {
             } catch (JSONException e) {
                 e.printStackTrace();
             } finally {
-                if (conn != null) {
-                    conn.disconnect();
-                }
+                conn.disconnect();
             }
 
             return tweetModel.getAccess_string();
@@ -81,11 +77,7 @@ public class Authorization extends AsyncTask<Void, Void, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
-
     }
-
-
 }
 

@@ -2,30 +2,25 @@ package com.example.ap.twitterclient.model;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by Evi on 29-4-2016.
+ * Created by romybeugeling and Evi on 29-4-2016.
  */
 public class Hashtag {
 
-    private String text;
-    private int[] indices = new int[2];
-    private int beginIndex;
-    private int endIndex;
+    private int[] indices;
 
-    public Hashtag(String text, JSONArray indicesArray) {
+    /**
+     * Slaat de gegevens van een hashtag op
+     * @param indicesArray de locatie van het begin en eind van de hashtag
+     */
+    Hashtag(JSONArray indicesArray) {
         try {
-            this.text = text;
+            indices = new int[2];
             for (int i = 0; i < indicesArray.length(); i++) {
                 int index = indicesArray.getInt(i);
                 indices[i] = index;
             }
-            beginIndex = indices[0];
-            endIndex = indices[1];
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -33,15 +28,11 @@ public class Hashtag {
     }
 
 
-    public String getText() {
-        return text;
-    }
-
     public int getBeginIndex() {
-        return beginIndex;
+        return indices[0];
     }
 
     public int getEndIndex() {
-        return endIndex;
+        return indices[1];
     }
 }
